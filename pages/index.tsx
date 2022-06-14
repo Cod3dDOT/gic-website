@@ -1,16 +1,14 @@
 import React from "react";
 
-import { Container, Header } from "@components";
+import { Header, FirstScreen, SecondScreen, Footer } from "@components";
 
 const Home: React.FC = () => {
     return (
         <React.StrictMode>
-            <Container>
-                <Header />
-            </Container>
-            <Container>
-                <div></div>
-            </Container>
+            <Header />
+            <FirstScreen />
+            <SecondScreen />
+            <Footer />
         </React.StrictMode>
     );
 };

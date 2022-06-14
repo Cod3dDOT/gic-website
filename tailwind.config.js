@@ -5,7 +5,31 @@ module.exports = {
         "./src/components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        screens: {
+            sm: "640px",
+            md: "768px",
+            lg: "1024px",
+            xl: "1280px",
+            "2xl": "1536px",
+        },
+        extend: {
+            colors: {
+                white: "#fff",
+                "dark-primary": {
+                    DEFAULT: "#262626",
+                    light: "#737373",
+                    dark: "#171717",
+                },
+                "dark-accent": {
+                    DEFAULT: "#888888",
+                },
+                "dark-red": "#dc2626",
+                "dark-blue": "#3b82f6",
+            },
+            fontFamily: {
+                poppins: ["Poppins", "sans-serif"],
+            },
+        },
     },
-    plugins: [],
+    plugins: [require("@tailwindcss/typography")],
 };

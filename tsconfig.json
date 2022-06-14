@@ -27,6 +27,7 @@
     },
     "include": [
         "next-env.d.ts",
+        "additional.d.ts",
         "**/*.ts",
         "**/*.tsx",
         "src/components/header/index.js"

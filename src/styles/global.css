@@ -2,8 +2,13 @@ html,
 body {
     padding: 0;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: "Poppins";
 
-    background: radial-gradient(#222, #111);
+    background: #171717;
+    background-image: radial-gradient(#262626, #171717 90%);
+}
+
+.screen-image-mask {
+    -webkit-mask-image: radial-gradient(at center, #111 35%, transparent 70%);
+    mask-image: radial-gradient(at center, #111 35%, transparent 70%);
 }
