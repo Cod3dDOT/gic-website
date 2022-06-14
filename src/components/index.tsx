@@ -1,12 +1,18 @@
-export { Tooltip, TooltipPosition } from "./tooltip";
-export { Button, ButtonThemeType } from "./button";
-export { Icon } from "./icon";
+export { Tooltip, TooltipPosition } from "./common/tooltip";
+export { Button, ButtonThemeType } from "./common/button";
+export { Icon } from "./common/icon";
 
-export { ScrollReveal } from "./scroll-reveal";
-export type { RevealParams } from "./scroll-reveal";
+export {
+    ScrollReveal,
+    RevealFromBottom,
+    RevealFromLeft,
+    RevealFromRight,
+    RevealFromTop,
+} from "./common/scroll-reveal";
+export type { RevealParams } from "./common/scroll-reveal";
 
 export { Header } from "./header";
 export { Footer } from "./footer";
-export { ScreenContainer } from "./screen-container";
+export { ScreenContainer } from "./common/screen-container";
 
 export { FirstScreen, SecondScreen } from "./screens";

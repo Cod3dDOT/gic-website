@@ -1,6 +1,8 @@
-import logoImage from "@public/footer/logo.svg";
-import Image from "next/image";
 import { ScrollReveal } from "@components";
+
+import logoImage from "@public/footer/logo.svg";
+
+import Image from "next/image";
 
 export const Footer: React.FC = () => {
     return (

@@ -1,6 +1,11 @@
-import { Icon, ScrollReveal, ScreenContainer } from "@components";
-
-import { RevealFromLeft } from "@components/scroll-reveal";
+import {
+    Icon,
+    ScrollReveal,
+    ScreenContainer,
+    RevealFromLeft,
+    Button,
+    ButtonThemeType,
+} from "@components";
 
 import chImage1 from "@public/characters/chun-yun.webp";
 import chImage2 from "@public/characters/bei-dou.webp";
@@ -55,8 +60,19 @@ export const FirstScreen: React.FC = () => {
 
             <div className=" text-white m-auto absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
                 <ScrollReveal>
-                    <Icon icon="ri-mouse-fill"></Icon>
-                    <p className="mt-2">Scroll down to start</p>
+                    <Button
+                        text=""
+                        buttonTheme={ButtonThemeType.None}
+                        onClick={() => {
+                            window.scrollTo({
+                                top: window.innerHeight,
+                                behavior: "smooth",
+                            });
+                        }}
+                    >
+                        <Icon icon="ri-mouse-fill"></Icon>
+                        <p className="mt-2">Scroll down to start</p>
+                    </Button>
                 </ScrollReveal>
             </div>
         </ScreenContainer>
