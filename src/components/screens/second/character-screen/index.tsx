@@ -10,7 +10,10 @@ export interface CharacterScreenProps {
 export const CharacterScreen: React.FC<CharacterScreenProps> = ({
     className = "",
 }) => {
-    const characters = [new Character("Chun Yun", 4, "cryo")];
+    const characters = [
+        new Character("Chun Yun", 4, "cryo"),
+        new Character("Bei Dou", 5, "cryo"),
+    ];
 
     return (
         <div className={`flex flex-col ${className}`}>
