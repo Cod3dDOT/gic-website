@@ -1,4 +1,4 @@
-import { ScrollReveal } from "@components";
+import { ScrollReveal } from "@components/common";
 
 import logoImage from "@public/footer/logo.svg";
 

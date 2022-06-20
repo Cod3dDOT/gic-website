@@ -5,10 +5,27 @@ body {
     font-family: "Poppins";
 
     background: #171717;
-    background-image: radial-gradient(#262626, #171717 90%);
+    background-image: radial-gradient(#232323, #111 90%);
 }
 
 .screen-image-mask {
-    -webkit-mask-image: radial-gradient(at center, #111 35%, transparent 70%);
-    mask-image: radial-gradient(at center, #111 35%, transparent 70%);
+    -webkit-mask-image: radial-gradient(at 70% 40%, #111 35%, transparent 70%);
+    mask-image: radial-gradient(at 70% 40%, #111 35%, transparent 70%);
+}
+
+.character-image-mask {
+    -webkit-mask-image: radial-gradient(at center, #111 40%, transparent 70%);
+    mask-image: radial-gradient(at center, #111 40%, transparent 70%);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    -moz-appearance: none;
+
+    width: 20px;
+    height: 20px;
+    border: 4px solid #404040;
+    border-radius: 50%;
+    background-color: white;
 }

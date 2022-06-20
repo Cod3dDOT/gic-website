@@ -1,13 +1,15 @@
-import React from "react";
+import { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const defaultRevealParams = {
+const defaultRevealParams: RevealParams = {
     duration: 1,
-    delay: 0,
+    delay: 0.2,
     x: 0,
     y: 0,
     opacity: 1,
+    revealPolicy: "scroll",
+    revealed: false,
 };
 
 export interface RevealParams {
@@ -16,6 +18,8 @@ export interface RevealParams {
     x?: number;
     y?: number;
     opacity?: number;
+    revealPolicy?: string;
+    revealed?: boolean;
 }
 
 interface ScrollRevealProps {
@@ -24,21 +28,20 @@ interface ScrollRevealProps {
     children: React.ReactNode;
 }
 
-export const RevealFromLeft: RevealParams = {
-    x: -30,
-};
-
-export const RevealFromRight: RevealParams = {
-    x: 30,
-};
-
-export const RevealFromTop: RevealParams = {
-    y: -30,
-};
-
-export const RevealFromBottom: RevealParams = {
-    y: 30,
-};
+export abstract class RevealFrom {
+    static Left: RevealParams = {
+        x: -30,
+    };
+    static Right: RevealParams = {
+        x: 30,
+    };
+    static Bottom: RevealParams = {
+        y: 30,
+    };
+    static Top: RevealParams = {
+        y: -30,
+    };
+}
 
 export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     className = "",
@@ -53,13 +56,21 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     const control = useAnimation();
     const [ref, inView] = useInView();
 
-    React.useEffect(() => {
-        if (inView) {
+    useEffect(() => {
+        let condition = false;
+        if (revealParams.revealPolicy === "scroll") {
+            condition = inView;
+        }
+        if (revealParams.revealPolicy === "custom") {
+            condition = revealParams.revealed === true;
+        }
+
+        if (condition) {
             control.start("visible");
         } else {
             control.start("hidden");
         }
-    }, [control, inView]);
+    }, [control, inView, revealParams.revealed]);
 
     let hid = {
         opacity: 0,

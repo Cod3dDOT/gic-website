@@ -17,8 +17,9 @@ module.exports = {
                 white: "#fff",
                 "dark-primary": {
                     DEFAULT: "#262626",
-                    light: "#737373",
+                    light: "#404040",
                     dark: "#171717",
+                    lighter: "#737373",
                 },
                 "dark-accent": {
                     DEFAULT: "#888888",
@@ -28,6 +29,9 @@ module.exports = {
             },
             fontFamily: {
                 poppins: ["Poppins", "sans-serif"],
+            },
+            height: {
+                88: "22rem",
             },
         },
     },

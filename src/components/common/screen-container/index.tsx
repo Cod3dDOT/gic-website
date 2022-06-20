@@ -5,9 +5,13 @@ type SCProps = {
     className?: string;
 };
 
-export const ScreenContainer: React.FC<SCProps> = ({
-    children,
-    className = "",
-}) => {
-    return <div className={`h-screen ${className}`}>{children}</div>;
-};
+export const ScreenContainer: React.FC<SCProps> = React.forwardRef<
+    HTMLDivElement,
+    SCProps
+>(({ children, className = "" }, myRef) => {
+    return (
+        <div className={`h-screen ${className}`} ref={myRef}>
+            {children}
+        </div>
+    );
+});

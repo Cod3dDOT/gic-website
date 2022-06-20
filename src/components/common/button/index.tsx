@@ -1,7 +1,8 @@
-import React from "react";
-import { Icon } from "@components";
+import { Icon } from "@components/common";
 
-export enum ButtonThemeType {
+import Image from "next/image";
+
+export enum ButtonTheme {
     None = -1,
     Normal = 0,
     Info = 1,
@@ -34,7 +35,8 @@ const ButtonThemes = {
 interface IButtonProps {
     text?: string;
     icon?: string;
-    buttonTheme?: ButtonThemeType;
+    image?: string;
+    buttonTheme?: ButtonTheme;
     link?: string;
     onHoverEffects?: boolean;
     border?: boolean;
@@ -47,23 +49,34 @@ export type IButton = IButtonProps &
     >;
 
 export const Button: React.FC<IButton> = ({
-    text = "default",
+    text = "",
     icon = "",
-    buttonTheme = ButtonThemeType.Normal,
+    image = "",
+    buttonTheme = ButtonTheme.Normal,
     link = "",
-    onHoverEffects = false,
+    onHoverEffects = true,
     border = true,
 
     className = "",
     children,
     ...rest
 }) => {
-    let childElements =
-        icon === "" ? (
-            <p className="leading-none text-md">{text}</p>
-        ) : (
-            <Icon icon={icon}></Icon>
+    let childElements = <p className="leading-none text-md">{text}</p>;
+    if (icon !== "") {
+        childElements = <Icon icon={icon}></Icon>;
+    }
+    if (image !== "") {
+        childElements = (
+            <Image
+                src={image}
+                width={0}
+                height={0}
+                layout="responsive"
+                objectFit="contain"
+                className="group-hover:invert"
+            ></Image>
         );
+    }
 
     let theme = ButtonThemes[buttonTheme];
     let cls = theme.default;

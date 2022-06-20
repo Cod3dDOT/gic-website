@@ -1,5 +1,3 @@
-import React from "react";
-
 export enum TooltipPosition {
     Left = 0,
     Top = 1,
