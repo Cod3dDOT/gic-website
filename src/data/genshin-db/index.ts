@@ -1,9 +1,9 @@
-import GenshinDB from "genshin-db";
+import GenshinDb from "genshin-db";
 
 export type { Character } from "genshin-db";
 
 export const getCharacters = () => {
-    return GenshinDB.characters("names", {
+    return GenshinDb.characters("names", {
         matchCategories: true,
         verboseCategories: true,
     });

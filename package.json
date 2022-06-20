@@ -6,9 +6,13 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "analyze": "ANALYZE=true next build",
+        "analyze:server": "BUNDLE_ANALYZE=server next build",
+        "analyze:browser": "BUNDLE_ANALYZE=browser next build"
     },
     "dependencies": {
+        "@next/bundle-analyzer": "^12.1.6",
         "@types/react-dom": "^18.0.5",
         "framer-motion": "^6.3.11",
         "genshin-db": "^4.2.0",
