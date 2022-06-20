@@ -15,17 +15,21 @@ const TooltipPositions = {
 interface ITooltipProps {
     message: string;
     position?: TooltipPosition;
+    className?: string;
     children: React.ReactNode;
 }
 
 export const Tooltip: React.FC<ITooltipProps> = ({
     message,
     position = TooltipPosition.Top,
+    className = "",
     children,
 }) => {
     return (
-        <div className="relative flex flex-col items-center group">
-            <div className="peer relative z-10">
+        <div
+            className={`relative flex flex-col items-center group ${className}`}
+        >
+            <div className="peer relative z-10 w-full h-full">
                 <div className="absolute top-1 right-1 w-2 h-2 rounded-md bg-white"></div>
                 {children}
             </div>

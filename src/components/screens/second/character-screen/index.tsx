@@ -1,7 +1,7 @@
 import { Slider } from "@components/common";
 import { CharacterSelect } from "./character-select";
 
-import { Character } from "@data/classes";
+import { getCharacters, Character } from "@data/genshin-db";
 
 export interface CharacterScreenProps {
     className?: string;
@@ -10,10 +10,7 @@ export interface CharacterScreenProps {
 export const CharacterScreen: React.FC<CharacterScreenProps> = ({
     className = "",
 }) => {
-    const characters = [
-        new Character("Chun Yun", 4, "cryo"),
-        new Character("Bei Dou", 5, "cryo"),
-    ];
+    const characters = getCharacters();
 
     return (
         <div className={`flex flex-col ${className}`}>
@@ -24,13 +21,10 @@ export const CharacterScreen: React.FC<CharacterScreenProps> = ({
                 <div className="flex space-x-12 h-full">
                     <div className="space-y-4">
                         <CharacterSelect all={characters} />
-                        <Slider name="Character Level" step={10} max={90} />
-                        <Slider
-                            name="Constellations"
-                            step={1}
-                            value={80}
-                            max={90}
-                        />
+
+                        <Slider name="Character Level" step={1} max={90} />
+
+                        <Slider name="Constellations" max={6} />
                     </div>
                     <div className="border-4 border-dark-primary-light flex-grow"></div>
                     <div className="border-4 border-dark-primary-light flex-grow"></div>

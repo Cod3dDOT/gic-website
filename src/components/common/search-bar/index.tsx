@@ -32,7 +32,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     const [query, setQuery] = useState("");
 
     return (
-        <div className={`w-full h-full space-y-1 ${className}`}>
+        <div className={`w-full h-full space-y-1 overflow-y-auto ${className}`}>
             <input
                 placeholder={placeholder}
                 className="w-full h-12 rounded-lg px-2 appearance-none outline-none shadow-lg mb-2"
@@ -40,7 +40,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             />
             {all
                 .filter((entry) => {
-                    if (query === "") return entry;
+                    if (query.length < 1) return;
 
                     if (entry.searchValue.toLowerCase().includes(query)) {
                         return entry;
@@ -52,26 +52,33 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                         className=" flex justify-between
                                     w-full h-12 p-2
                                     text-white  bg-dark-primary shadow-lg
-                                    border-2 rounded-lg border-dark-primary hover:border-white transition-colors"
+                                    border-2 rounded-lg border-dark-primary hover:border-white transition-colors
+                                    cursor-pointer"
                         onClick={() => onSelected(entry.value)}
                     >
                         <div className="relative h-full aspect-square rounded-full">
                             <ImageFallback
-                                src={entry.preview}
+                                src={
+                                    entry.preview
+                                        ? entry.preview
+                                        : "/characters/preview/not-found-dark.svg"
+                                }
                                 layout="fill"
                                 objectFit="contain"
                                 fallback="/characters/preview/not-found-dark.svg"
                             />
                         </div>
-                        <div className="block my-auto">
-                            <div className="relative w-[50px] h-[10px] [mask:url(/icons/icon_rarity_star.png)_left/10px_10px] float-right">
+                        <div className="flex flex-col my-auto">
+                            <div className="ml-auto relative w-[50px] h-[10px] [mask:url(/icons/icon_rarity_star.png)_left/10px_10px] float-right">
                                 <span
                                     className={`absolute block ${
                                         rarityToWidth[entry.value.rarity]
                                     } h-full bg-yellow-400 right-0`}
                                 ></span>
                             </div>
-                            <p>{entry.searchValue}</p>
+                            <div className="text-right">
+                                {entry.searchValue}
+                            </div>
                         </div>
                     </div>
                 ))}

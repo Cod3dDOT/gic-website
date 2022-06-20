@@ -66,8 +66,10 @@ export const Slider: React.FC<SliderProps> = ({
                 <ScrollReveal
                     revealParams={{
                         revealPolicy: "custom",
-                        revealed: progressValue >= min + step || step > 5,
-                        duration: 0.15,
+                        revealed:
+                            progressValue >= min + step ||
+                            step / (max - min) > 1 / 50,
+                        duration: 0.1,
                     }}
                 >
                     <span>{min}</span>
@@ -75,8 +77,10 @@ export const Slider: React.FC<SliderProps> = ({
                 <ScrollReveal
                     revealParams={{
                         revealPolicy: "custom",
-                        revealed: progressValue <= max - step || step > 5,
-                        duration: 0.15,
+                        revealed:
+                            progressValue <= max - step ||
+                            step / (max - min) > 1 / 50,
+                        duration: 0.1,
                     }}
                 >
                     <span>{max}</span>

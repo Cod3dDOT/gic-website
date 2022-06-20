@@ -1,12 +1,24 @@
 import { SearchBar, SearchBarEntry } from "@components/common";
 
-import { Character } from "@data/classes";
+import { Character } from "@data/genshin-db";
+import { slugify } from "@data/utilities";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
-import Image from "next/image";
+import { ImageFallback } from "@components/common";
 
-const rarityToWidth = ["w-0/5", "w-1/5", "w-2/5", "w-3/5", "w-4/5", "w-full"];
+interface Map {
+    [key: string]: string | undefined;
+}
+
+const rarityToWidth: Map = {
+    "0": "w-0/5",
+    "1": "w-1/5",
+    "2": "w-2/5",
+    "3": "w-3/5",
+    "4": "w-4/5",
+    "5": "w-full",
+};
 
 export interface CharacterSelectProps {
     all: Array<Character>;
@@ -21,10 +33,6 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
     onCharacterSelect = (character: Character) => {},
     className = "",
 }) => {
-    const slugify = (val: string) => {
-        return val.replaceAll(" ", "-").toLowerCase();
-    };
-
     const [selectedCharacter, setSelectedCharacter] = useState<Character>(
         all[def]
     );
@@ -33,12 +41,26 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
         return new SearchBarEntry<Character>(
             character.name,
             character,
-            `/characters/preview/${character.name}`
+            character.images.icon
         );
     });
 
     const onCharacterSelected = (character: Character) => {
         setSelectedCharacter(character);
+    };
+
+    const getCharacterPortrait = (character: Character) => {
+        if (character.images.portrait) return character.images.portrait;
+        if (character.images["hoyolab-avatar"])
+            return character.images["hoyolab-avatar"];
+        if (character.images.icon) return character.images.icon;
+        return "/characters/preview/not-found-dark.svg";
+    };
+
+    const getCharacterElement = (character: Character) => {
+        const el = slugify(character.element);
+        if (el === "none") return "not-found";
+        return el;
     };
 
     return (
@@ -48,26 +70,28 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
             <div className="absolute w-full h-full">
                 <div className="absolute w-full h-full character-image-mask">
                     <div className="relative block mt-4 w-full h-full">
-                        <Image
-                            src={`/characters/${slugify(
-                                selectedCharacter.name
-                            )}.webp`}
+                        <ImageFallback
+                            src={getCharacterPortrait(selectedCharacter)}
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center top"
-                        ></Image>
+                            fallback="/icons/elements/not-found-dark.svg"
+                        />
                     </div>
                 </div>
                 <div className="absolute bottom-0 p-4 w-full text-white flex justify-between">
                     <div className="relative block w-8 h-8 my-auto">
-                        <Image
-                            src={`/icons/elements/icon_element_${selectedCharacter.element}.webp`}
+                        <ImageFallback
+                            src={`/icons/elements/element-${getCharacterElement(
+                                selectedCharacter
+                            )}.png`}
                             layout="fill"
                             objectFit="contain"
-                        ></Image>
+                            fallback="/icons/elements/not-found-dark.svg"
+                        />
                     </div>
-                    <div>
-                        <div className="relative w-[75px] h-[15px] [mask:url(/icons/icon_rarity_star.png)_left/15px_15px] float-right">
+                    <div className="flex flex-col">
+                        <div className="relative ml-auto w-[75px] h-[15px] [mask:url(/icons/icon_rarity_star.png)_left/15px_15px] float-right">
                             <span
                                 className={`absolute block ${
                                     rarityToWidth[selectedCharacter.rarity]
@@ -75,9 +99,9 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                             ></span>
                         </div>
 
-                        <p className="text-right font-medium text-xl">
+                        <div className="text-right font-medium text-xl">
                             {selectedCharacter.name}
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
