@@ -70,7 +70,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
         } else {
             control.start("hidden");
         }
-    }, [control, inView, revealParams.revealed]);
+    }, [control, inView, revealParams.revealPolicy, revealParams.revealed]);
 
     let hid = {
         opacity: 0,
