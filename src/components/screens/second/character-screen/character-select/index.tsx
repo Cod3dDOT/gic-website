@@ -1,6 +1,6 @@
 import { SearchBar, SearchBarEntry } from "@components/common";
 
-import { Character } from "@data/genshin-db";
+import { Character } from "@data/database";
 import { slugify } from "@data/utilities";
 
 import { useState } from "react";
@@ -59,8 +59,8 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
 
     const getCharacterElement = (character: Character) => {
         const el = slugify(character.element);
-        if (el === "none") return "not-found";
-        return el;
+        if (el === "none") return "not-found-dark.svg";
+        return el + ".png";
     };
 
     return (
@@ -84,7 +84,7 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                         <ImageFallback
                             src={`/icons/elements/element-${getCharacterElement(
                                 selectedCharacter
-                            )}.png`}
+                            )}`}
                             layout="fill"
                             objectFit="contain"
                             fallback="/icons/elements/not-found-dark.svg"

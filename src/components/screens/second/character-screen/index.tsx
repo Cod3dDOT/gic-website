@@ -1,7 +1,7 @@
 import { Slider } from "@components/common";
 import { CharacterSelect } from "./character-select";
 
-import { getCharacters, Character } from "@data/genshin-db";
+import { getCharacters, Character } from "@data/database";
 
 export interface CharacterScreenProps {
     className?: string;
