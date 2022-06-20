@@ -25,6 +25,7 @@ export const ImageFallback: React.FC<ImageFallbackProps> = ({
             onError={() => {
                 setImgSrc(fallback);
             }}
+            alt=""
         />
     );
 };

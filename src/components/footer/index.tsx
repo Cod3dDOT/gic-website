@@ -13,6 +13,7 @@ export const Footer: React.FC = () => {
                         src={logoImage}
                         layout="fill"
                         objectFit={"contain"}
+                        alt=""
                     ></Image>
                 </div>
                 <div className="relative block">

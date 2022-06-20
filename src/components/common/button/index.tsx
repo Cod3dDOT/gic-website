@@ -74,6 +74,7 @@ export const Button: React.FC<IButton> = ({
                 layout="responsive"
                 objectFit="contain"
                 className="group-hover:invert"
+                alt=""
             ></Image>
         );
     }
