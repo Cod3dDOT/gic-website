@@ -1,14 +1,13 @@
-import { useEffect } from "react";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react";
+import { motion, useAnimation } from "framer-motion";
 
-const defaultFrom: RevealParams = {
+const defaultHidden: RevealParams = {
     x: 0,
     y: 0,
     opacity: 0,
 };
 
-const defaultTo: RevealParams = {
+const defaultVisible: RevealParams = {
     x: 0,
     y: 0,
     opacity: 1,
@@ -18,17 +17,20 @@ export interface RevealParams {
     x?: number;
     y?: number;
     opacity?: number;
+    delay?: number;
+    duration?: number;
 }
 
 export interface ScrollRevealProps {
     className?: string;
-    duration?: number;
-    delay?: number;
-    from?: RevealParams;
-    to?: RevealParams;
+    hidden?: RevealParams;
+    visible?: RevealParams;
+    exit?: RevealParams;
     revealPolicy?: "scroll" | "custom";
     revealed?: boolean;
-    key?: string;
+    motionKey?: string;
+    delay?: number;
+    duration?: number;
     children: React.ReactNode;
 }
 
@@ -49,59 +51,67 @@ export abstract class RevealPresets {
 
 export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     className = "",
-    key = "",
     children,
-    duration = 1,
-    delay = 0.2,
-    from = {},
-    to = {},
+    hidden = {},
+    visible = {},
+    exit = undefined,
     revealPolicy = "scroll",
     revealed = false,
+
+    delay = 0.2,
+    duration = 1,
 }) => {
-    from = { ...defaultFrom, ...from };
-    to = { ...defaultTo, ...to };
+    const getValidParams = (params: RevealParams) => {
+        return {
+            x: params.x,
+            y: params.y,
+            opacity: params.opacity,
+            transition: {
+                duration:
+                    params.duration !== undefined ? params.duration : duration,
+                delay: params.delay !== undefined ? params.delay : delay,
+                type: "tween",
+                ease: "easeOut",
+            },
+        };
+    };
+
+    hidden = getValidParams({ ...defaultHidden, ...hidden });
+    visible = getValidParams({ ...defaultVisible, ...visible });
+    if (exit !== undefined)
+        exit = getValidParams({ ...defaultHidden, ...exit });
 
     const control = useAnimation();
-    const [ref, inView] = useInView();
 
     useEffect(() => {
-        let condition = false;
-        switch (revealPolicy) {
-            case "scroll":
-                condition = inView;
-                break;
-            case "custom":
-                condition = revealed === true;
-                break;
-        }
+        if (revealPolicy !== "custom") return;
+        revealed ? control.start("visible") : control.start("hidden");
+    }, [control, revealPolicy, revealed]);
 
-        condition ? control.start("visible") : control.start("hidden");
-    }, [control, inView, revealPolicy, revealed]);
+    let addProps: { whileInView?: string } = {};
+    if (revealPolicy === "scroll") addProps.whileInView = "visible";
+
+    let variantProps: {
+        hidden: RevealParams;
+        visible: RevealParams;
+        exit?: RevealParams;
+    } = {
+        hidden: hidden,
+        visible: visible,
+    };
+    if (exit) variantProps.exit = exit;
 
     return (
-        <AnimatePresence>
-            <motion.div
-                key={key}
-                ref={ref}
-                initial="hidden"
-                animate={control}
-                exit={"exit"}
-                variants={{
-                    hidden: from,
-                    visible: to,
-                    exit: from,
-                }}
-                transition={{
-                    delay: delay,
-                    duration: duration,
-                    type: "tween",
-                    ease: "easeOut",
-                }}
-                className={className}
-            >
-                {children}
-            </motion.div>
-        </AnimatePresence>
+        <motion.div
+            {...addProps}
+            initial="hidden"
+            animate={control}
+            exit="exit"
+            variants={variantProps}
+            className={className}
+        >
+            {children}
+        </motion.div>
     );
 };
 

@@ -28,7 +28,12 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                     <div className="text-white font-medium">
                         <h1 className="text-5xl">Genshin Impact</h1>
                         <h1 className="text-7xl text-end ml-24">Calculator</h1>
-                        <ScrollReveal from={RevealPresets.Top} delay={0.4}>
+                        <ScrollReveal
+                            hidden={{
+                                ...RevealPresets.Top,
+                                delay: 0.4,
+                            }}
+                        >
                             <p className="text-end font-thin text-dark-blue">
                                 v0.1-alpha
                             </p>
@@ -42,7 +47,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                             xl:h-[46rem] lg:h-[36rem] w-full max-w-[50%]`}
             >
                 <ScrollReveal
-                    from={RevealPresets.Left}
+                    hidden={RevealPresets.Left}
                     className="absolute top-0 left-0 w-4/5 h-[90%]"
                 >
                     <Image
@@ -55,8 +60,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                 </ScrollReveal>
 
                 <ScrollReveal
-                    from={RevealPresets.Left}
-                    delay={0.4}
+                    hidden={{ ...RevealPresets.Left, delay: 0.4 }}
                     className="absolute -bottom-20 right-0 w-3/5 h-full -z-10"
                 >
                     <Image
@@ -70,7 +74,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
             </div>
 
             <div className="text-white m-auto absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
-                <ScrollReveal from={RevealPresets.Top}>
+                <ScrollReveal hidden={RevealPresets.Top}>
                     <Button theme="none" onClick={() => executeScroll()}>
                         <Icon icon="ri-mouse-fill"></Icon>
                         <p className="mt-2">Scroll down to start</p>

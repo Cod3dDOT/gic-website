@@ -25,7 +25,7 @@ export const NavBar: React.FC<NavBarProps> = ({
     };
 
     return (
-        <div className="flex flex-col justify-between">
+        <div className={`flex flex-col justify-between ${className}`}>
             <Button
                 icon="ri-information-fill text-3xl"
                 theme="none"

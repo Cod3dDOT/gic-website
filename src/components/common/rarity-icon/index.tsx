@@ -27,9 +27,14 @@ export const RarityIcon: React.FC<RarityIconProps> = ({
     return (
         <div
             className={`relative float-${align}
-                        w-[${height * 5}px] h-[${height}px]
-                        [mask:url(/icons/icon_rarity_star.png)_left/${height}px_${height}px]
+                        
                         ${className}`}
+            style={{
+                width: height * 5,
+                height: height,
+                mask: `url(/icons/icon_rarity_star.png) left/${height}px ${height}px`,
+                WebkitMask: `url(/icons/icon_rarity_star.png) left/${height}px ${height}px`,
+            }}
         >
             <span
                 className={`absolute block ${rarityToWidth[rarity]} h-full bg-yellow-400 ${align}-0`}

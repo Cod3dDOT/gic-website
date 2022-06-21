@@ -63,7 +63,7 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center top"
-                            fallback="/icons/elements/not-found-dark.svg"
+                            fallback="/icons/elements/element-not-found-dark.svg"
                             sizes="384px"
                         />
                     </div>

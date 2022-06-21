@@ -1,4 +1,5 @@
 import { Image, ScrollReveal, RarityIcon } from "@components/common";
+import { AnimatePresence, AnimateSharedLayout } from "framer-motion";
 
 import { useState } from "react";
 
@@ -6,6 +7,7 @@ export class SearchBarEntry<T> {
     searchValue: string;
     value: T;
     preview: string;
+    public id: number = -1;
 
     constructor(searchValue: string, value: T, preview: string = "") {
         this.searchValue = searchValue;
@@ -28,69 +30,76 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     className = "",
 }) => {
     const [query, setQuery] = useState("");
+    all = all.map((entry, index) => ({ ...entry, id: index }));
 
     return (
-        <div className={`w-full h-full space-y-1 overflow-y-auto ${className}`}>
+        <div className={`w-full h-full ${className}`}>
             <input
                 placeholder={placeholder}
                 className="w-full h-12 rounded-lg px-2 appearance-none outline-none shadow-lg mb-2"
                 onChange={(event) => setQuery(event.target.value.toLowerCase())}
             />
-            {all
-                .filter((entry) => {
-                    if (query.length < 1) return;
+            <div className="w-full h-full overflow-y-auto space-y-1">
+                <AnimatePresence>
+                    {all
+                        .filter((entry) => {
+                            if (query.length < 1) return;
 
-                    if (entry.searchValue.toLowerCase().includes(query)) {
-                        return entry;
-                    }
-                })
-                .map((entry, index) => (
-                    <ScrollReveal
-                        duration={0.15}
-                        delay={index / 10}
-                        revealPolicy="custom"
-                        revealed={true}
-                        from={{ x: -5 }}
-                        key={index.toString()}
-                    >
-                        <div
-                            key={index}
-                            className=" flex justify-between
+                            if (
+                                entry.searchValue
+                                    .toLowerCase()
+                                    .startsWith(query)
+                            ) {
+                                return entry;
+                            }
+                        })
+                        .map((entry, index) => (
+                            <ScrollReveal
+                                revealPolicy="custom"
+                                revealed={true}
+                                delay={index / 20}
+                                duration={0.1}
+                                hidden={{ x: -5 }}
+                                key={"character-select-" + entry.id}
+                            >
+                                <div
+                                    className="flex justify-between
                                     w-full h-12 p-2
                                     text-white  bg-dark-primary shadow-lg
                                     border-2 rounded-lg border-dark-primary hover:border-white transition-colors
                                     cursor-pointer"
-                            onClick={() => onSelected(entry.value)}
-                        >
-                            <div className="relative h-full aspect-square rounded-full">
-                                <Image
-                                    src={
-                                        entry.preview
-                                            ? entry.preview
-                                            : "/characters/preview/not-found-dark.svg"
-                                    }
-                                    layout="fill"
-                                    objectFit="contain"
-                                    fallback="/characters/preview/not-found-dark.svg"
-                                    sizes="32px"
-                                    width={32}
-                                    smoothLoad={true}
-                                />
-                            </div>
-                            <div className="flex flex-col my-auto">
-                                <RarityIcon
-                                    rarity={entry.value.rarity}
-                                    className="ml-auto"
-                                    align="right"
-                                    height={10}
-                                />
-                                <div className="text-right">
-                                    {entry.searchValue}
+                                    onClick={() => onSelected(entry.value)}
+                                >
+                                    <div className="relative h-full aspect-square rounded-full">
+                                        <Image
+                                            src={
+                                                entry.preview
+                                                    ? entry.preview
+                                                    : "/characters/preview/not-found-dark.svg"
+                                            }
+                                            layout="fill"
+                                            objectFit="contain"
+                                            fallback="/characters/preview/not-found-dark.svg"
+                                            sizes="32px"
+                                            smoothLoad={true}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col my-auto">
+                                        <RarityIcon
+                                            rarity={entry.value.rarity}
+                                            className="ml-auto"
+                                            align="right"
+                                            height={10}
+                                        />
+                                        <div className="text-right">
+                                            {entry.searchValue}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </ScrollReveal>
-                ))}
+                            </ScrollReveal>
+                        ))}
+                </AnimatePresence>
+            </div>
         </div>
     );
 };

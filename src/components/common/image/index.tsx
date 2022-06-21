@@ -26,6 +26,7 @@ export const Image: React.FC<ImageProps> = ({
             revealed={loaded}
             duration={smoothLoad ? 1 : 0}
             delay={0.1}
+            className="relative h-full w-full"
         >
             <NextImage
                 {...rest}
@@ -37,6 +38,7 @@ export const Image: React.FC<ImageProps> = ({
                     setImgSrc(fallback);
                 }}
                 alt=""
+                loading="lazy"
             />
         </ScrollReveal>
     );
