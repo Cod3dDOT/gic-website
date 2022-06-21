@@ -51,6 +51,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                         layout="fill"
                         objectFit="contain"
                         alt=""
+                        sizes="384px"
                     ></Image>
                 </ScrollReveal>
 
@@ -63,6 +64,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                         layout="fill"
                         objectFit="contain"
                         alt=""
+                        sizes="384px"
                     ></Image>
                 </ScrollReveal>
             </div>

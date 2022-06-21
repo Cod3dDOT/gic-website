@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const defaultRevealParams: RevealParams = {
@@ -18,13 +18,14 @@ export interface RevealParams {
     x?: number;
     y?: number;
     opacity?: number;
-    revealPolicy?: string;
+    revealPolicy?: "scroll" | "custom";
     revealed?: boolean;
 }
 
 interface ScrollRevealProps {
     className?: string;
     revealParams?: RevealParams;
+    key?: string;
     children: React.ReactNode;
 }
 
@@ -45,6 +46,7 @@ export abstract class RevealFrom {
 
 export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     className = "",
+    key = "",
     children,
     revealParams = defaultRevealParams,
 }) => {
@@ -85,24 +87,29 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     };
 
     return (
-        <motion.div
-            ref={ref}
-            initial="hidden"
-            animate={control}
-            variants={{
-                hidden: hid,
-                visible: vis,
-            }}
-            transition={{
-                delay: revealParams.delay,
-                duration: revealParams.duration,
-                type: "tween",
-                ease: "easeOut",
-            }}
-            className={className}
-        >
-            {children}
-        </motion.div>
+        <AnimatePresence>
+            <motion.div
+                key={key}
+                ref={ref}
+                initial="hidden"
+                animate={control}
+                exit={"exit"}
+                variants={{
+                    hidden: hid,
+                    visible: vis,
+                    exit: hid,
+                }}
+                transition={{
+                    delay: revealParams.delay,
+                    duration: revealParams.duration,
+                    type: "tween",
+                    ease: "easeOut",
+                }}
+                className={className}
+            >
+                {children}
+            </motion.div>
+        </AnimatePresence>
     );
 };
 

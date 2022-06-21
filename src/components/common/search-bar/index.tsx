@@ -1,8 +1,6 @@
-import { ImageFallback } from "@components/common";
+import { Image, ScrollReveal, RarityIcon } from "@components/common";
 
 import { useState } from "react";
-
-const rarityToWidth = ["w-0/5", "w-1/5", "w-2/5", "w-3/5", "w-4/5", "w-full"];
 
 export class SearchBarEntry<T> {
     searchValue: string;
@@ -47,40 +45,52 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                     }
                 })
                 .map((entry, index) => (
-                    <div
-                        key={index}
-                        className=" flex justify-between
+                    <ScrollReveal
+                        revealParams={{
+                            x: -5,
+                            duration: 0.15,
+                            delay: index / 10,
+                            revealPolicy: "custom",
+                            revealed: true,
+                        }}
+                        key={index.toString()}
+                    >
+                        <div
+                            key={index}
+                            className=" flex justify-between
                                     w-full h-12 p-2
                                     text-white  bg-dark-primary shadow-lg
                                     border-2 rounded-lg border-dark-primary hover:border-white transition-colors
                                     cursor-pointer"
-                        onClick={() => onSelected(entry.value)}
-                    >
-                        <div className="relative h-full aspect-square rounded-full">
-                            <ImageFallback
-                                src={
-                                    entry.preview
-                                        ? entry.preview
-                                        : "/characters/preview/not-found-dark.svg"
-                                }
-                                layout="fill"
-                                objectFit="contain"
-                                fallback="/characters/preview/not-found-dark.svg"
-                            />
-                        </div>
-                        <div className="flex flex-col my-auto">
-                            <div className="ml-auto relative w-[50px] h-[10px] [mask:url(/icons/icon_rarity_star.png)_left/10px_10px] float-right">
-                                <span
-                                    className={`absolute block ${
-                                        rarityToWidth[entry.value.rarity]
-                                    } h-full bg-yellow-400 right-0`}
-                                ></span>
+                            onClick={() => onSelected(entry.value)}
+                        >
+                            <div className="relative h-full aspect-square rounded-full">
+                                <Image
+                                    src={
+                                        entry.preview
+                                            ? entry.preview
+                                            : "/characters/preview/not-found-dark.svg"
+                                    }
+                                    layout="fill"
+                                    objectFit="contain"
+                                    fallback="/characters/preview/not-found-dark.svg"
+                                    sizes="32px"
+                                    width={32}
+                                />
                             </div>
-                            <div className="text-right">
-                                {entry.searchValue}
+                            <div className="flex flex-col my-auto">
+                                <RarityIcon
+                                    rarity={entry.value.rarity}
+                                    className="ml-auto"
+                                    align="right"
+                                    height={10}
+                                />
+                                <div className="text-right">
+                                    {entry.searchValue}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </ScrollReveal>
                 ))}
         </div>
     );

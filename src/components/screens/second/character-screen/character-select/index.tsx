@@ -5,20 +5,8 @@ import { slugify } from "@data/utilities";
 
 import { useState } from "react";
 
-import { ImageFallback } from "@components/common";
-
-interface Map {
-    [key: string]: string | undefined;
-}
-
-const rarityToWidth: Map = {
-    "0": "w-0/5",
-    "1": "w-1/5",
-    "2": "w-2/5",
-    "3": "w-3/5",
-    "4": "w-4/5",
-    "5": "w-full",
-};
+import { Image } from "@components/common";
+import { RarityIcon } from "@components/common";
 
 export interface CharacterSelectProps {
     all: Array<Character>;
@@ -70,34 +58,34 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
             <div className="absolute w-full h-full">
                 <div className="absolute w-full h-full character-image-mask">
                     <div className="relative block mt-4 w-full h-full">
-                        <ImageFallback
+                        <Image
                             src={getCharacterPortrait(selectedCharacter)}
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center top"
                             fallback="/icons/elements/not-found-dark.svg"
+                            sizes="384px"
                         />
                     </div>
                 </div>
                 <div className="absolute bottom-0 p-4 w-full text-white flex justify-between">
                     <div className="relative block w-8 h-8 my-auto">
-                        <ImageFallback
+                        <Image
                             src={`/icons/elements/element-${getCharacterElement(
                                 selectedCharacter
                             )}`}
                             layout="fill"
                             objectFit="contain"
                             fallback="/icons/elements/not-found-dark.svg"
+                            sizes="64px"
                         />
                     </div>
                     <div className="flex flex-col">
-                        <div className="relative ml-auto w-[75px] h-[15px] [mask:url(/icons/icon_rarity_star.png)_left/15px_15px] float-right">
-                            <span
-                                className={`absolute block ${
-                                    rarityToWidth[selectedCharacter.rarity]
-                                } h-full bg-yellow-400 right-0`}
-                            ></span>
-                        </div>
+                        <RarityIcon
+                            rarity={selectedCharacter.rarity}
+                            className="ml-auto"
+                            align="right"
+                        />
 
                         <div className="text-right font-medium text-xl">
                             {selectedCharacter.name}
