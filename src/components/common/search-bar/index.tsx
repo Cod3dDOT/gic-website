@@ -46,13 +46,11 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 })
                 .map((entry, index) => (
                     <ScrollReveal
-                        revealParams={{
-                            x: -5,
-                            duration: 0.15,
-                            delay: index / 10,
-                            revealPolicy: "custom",
-                            revealed: true,
-                        }}
+                        duration={0.15}
+                        delay={index / 10}
+                        revealPolicy="custom"
+                        revealed={true}
+                        from={{ x: -5 }}
                         key={index.toString()}
                     >
                         <div
@@ -76,6 +74,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                                     fallback="/characters/preview/not-found-dark.svg"
                                     sizes="32px"
                                     width={32}
+                                    smoothLoad={true}
                                 />
                             </div>
                             <div className="flex flex-col my-auto">

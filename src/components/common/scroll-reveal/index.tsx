@@ -2,34 +2,37 @@ import { useEffect } from "react";
 import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const defaultRevealParams: RevealParams = {
-    duration: 1,
-    delay: 0.2,
+const defaultFrom: RevealParams = {
+    x: 0,
+    y: 0,
+    opacity: 0,
+};
+
+const defaultTo: RevealParams = {
     x: 0,
     y: 0,
     opacity: 1,
-    revealPolicy: "scroll",
-    revealed: false,
 };
 
 export interface RevealParams {
-    duration?: number;
-    delay?: number;
     x?: number;
     y?: number;
     opacity?: number;
-    revealPolicy?: "scroll" | "custom";
-    revealed?: boolean;
 }
 
-interface ScrollRevealProps {
+export interface ScrollRevealProps {
     className?: string;
-    revealParams?: RevealParams;
+    duration?: number;
+    delay?: number;
+    from?: RevealParams;
+    to?: RevealParams;
+    revealPolicy?: "scroll" | "custom";
+    revealed?: boolean;
     key?: string;
     children: React.ReactNode;
 }
 
-export abstract class RevealFrom {
+export abstract class RevealPresets {
     static Left: RevealParams = {
         x: -30,
     };
@@ -48,43 +51,32 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
     className = "",
     key = "",
     children,
-    revealParams = defaultRevealParams,
+    duration = 1,
+    delay = 0.2,
+    from = {},
+    to = {},
+    revealPolicy = "scroll",
+    revealed = false,
 }) => {
-    var revealParams: RevealParams = {
-        ...defaultRevealParams,
-        ...revealParams,
-    };
+    from = { ...defaultFrom, ...from };
+    to = { ...defaultTo, ...to };
 
     const control = useAnimation();
     const [ref, inView] = useInView();
 
     useEffect(() => {
         let condition = false;
-        if (revealParams.revealPolicy === "scroll") {
-            condition = inView;
-        }
-        if (revealParams.revealPolicy === "custom") {
-            condition = revealParams.revealed === true;
+        switch (revealPolicy) {
+            case "scroll":
+                condition = inView;
+                break;
+            case "custom":
+                condition = revealed === true;
+                break;
         }
 
-        if (condition) {
-            control.start("visible");
-        } else {
-            control.start("hidden");
-        }
-    }, [control, inView, revealParams.revealPolicy, revealParams.revealed]);
-
-    let hid = {
-        opacity: 0,
-        x: revealParams.x,
-        y: revealParams.y,
-    };
-
-    let vis = {
-        opacity: revealParams.opacity,
-        x: 0,
-        y: 0,
-    };
+        condition ? control.start("visible") : control.start("hidden");
+    }, [control, inView, revealPolicy, revealed]);
 
     return (
         <AnimatePresence>
@@ -95,13 +87,13 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
                 animate={control}
                 exit={"exit"}
                 variants={{
-                    hidden: hid,
-                    visible: vis,
-                    exit: hid,
+                    hidden: from,
+                    visible: to,
+                    exit: from,
                 }}
                 transition={{
-                    delay: revealParams.delay,
-                    duration: revealParams.duration,
+                    delay: delay,
+                    duration: duration,
                     type: "tween",
                     ease: "easeOut",
                 }}

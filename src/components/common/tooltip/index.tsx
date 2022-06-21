@@ -1,27 +1,20 @@
-export enum TooltipPosition {
-    Left = 0,
-    Top = 1,
-    Right = 2,
-    Bottom = 3,
-}
-
 const TooltipPositions = {
-    0: "right-3/4 peer-hover:right-full mr-1",
-    1: "bottom-3/4 peer-hover:bottom-full mb-1",
-    2: "left-3/4 peer-hover:left-full ml-1",
-    3: "top-3/4 peer-hover:top-full mt-1",
+    left: "right-3/4 peer-hover:right-full mr-1",
+    top: "bottom-3/4 peer-hover:bottom-full mb-1",
+    right: "left-3/4 peer-hover:left-full ml-1",
+    bottom: "top-3/4 peer-hover:top-full mt-1",
 };
 
 interface ITooltipProps {
     message: string;
-    position?: TooltipPosition;
+    position?: "left" | "top" | "right" | "bottom";
     className?: string;
     children: React.ReactNode;
 }
 
 export const Tooltip: React.FC<ITooltipProps> = ({
     message,
-    position = TooltipPosition.Top,
+    position = "top",
     className = "",
     children,
 }) => {
@@ -30,7 +23,7 @@ export const Tooltip: React.FC<ITooltipProps> = ({
             className={`relative flex flex-col items-center group ${className}`}
         >
             <div className="peer relative z-10 w-full h-full">
-                <div className="absolute top-1 right-1 w-2 h-2 rounded-md bg-white"></div>
+                {/* <div className="absolute top-1 right-1 w-2 h-2 rounded-md bg-white"></div> */}
                 {children}
             </div>
 

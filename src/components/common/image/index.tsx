@@ -9,7 +9,7 @@ export type ImageProps = {
 
 export const Image: React.FC<ImageProps> = ({
     fallback = "",
-    smoothLoad = true,
+    smoothLoad = false,
     ...rest
 }) => {
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -22,11 +22,10 @@ export const Image: React.FC<ImageProps> = ({
 
     return (
         <ScrollReveal
-            revealParams={{
-                revealPolicy: "custom",
-                revealed: loaded,
-                duration: smoothLoad ? 1 : 0,
-            }}
+            revealPolicy={"custom"}
+            revealed={loaded}
+            duration={smoothLoad ? 1 : 0}
+            delay={0.1}
         >
             <NextImage
                 {...rest}

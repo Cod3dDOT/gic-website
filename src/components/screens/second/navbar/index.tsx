@@ -1,4 +1,4 @@
-import { Button, ButtonTheme } from "@components/common";
+import { Button } from "@components/common";
 
 import { useState } from "react";
 
@@ -28,7 +28,7 @@ export const NavBar: React.FC<NavBarProps> = ({
         <div className="flex flex-col justify-between">
             <Button
                 icon="ri-information-fill text-3xl"
-                buttonTheme={ButtonTheme.None}
+                theme="none"
                 className="p-2"
                 onClick={() => setInfoOpen(!infoOpen)}
             ></Button>

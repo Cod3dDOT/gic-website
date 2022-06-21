@@ -1,11 +1,11 @@
-import React from "react";
+import { forwardRef } from "react";
 
-type SCProps = {
+export interface ScreenContainerProps {
     children?: React.ReactNode;
     className?: string;
-};
+}
 
-export const ScreenContainer = React.forwardRef<HTMLDivElement, SCProps>(
+export const ScreenContainer = forwardRef<HTMLDivElement, ScreenContainerProps>(
     function ScreenContainer({ children, className = "" }, myRef) {
         return (
             <div className={`h-screen ${className}`} ref={myRef}>
