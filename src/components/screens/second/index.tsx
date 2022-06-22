@@ -24,8 +24,9 @@ export const SecondScreen: React.FC<SecondScreenProps> = ({ containerRef }) => {
                 return (
                     <ScrollReveal
                         revealPolicy="scroll"
+                        delay={0.5}
                         duration={0.5}
-                        hidden={{ x: 100 }}
+                        hidden={{ x: 0 }}
                         exit={{ x: -100 }}
                         key="second-screen-characters"
                         className="absolute h-full w-full"
@@ -38,8 +39,9 @@ export const SecondScreen: React.FC<SecondScreenProps> = ({ containerRef }) => {
                 return (
                     <ScrollReveal
                         revealPolicy="scroll"
+                        delay={0.5}
                         duration={0.5}
-                        hidden={{ x: 100 }}
+                        hidden={{ x: 0 }}
                         exit={{ x: -100 }}
                         key="second-screen-weapons"
                         className="absolute w-full h-full"
@@ -52,10 +54,10 @@ export const SecondScreen: React.FC<SecondScreenProps> = ({ containerRef }) => {
 
     return (
         <ScreenContainer
-            className="flex sm:flex-row flex-col-reverse p-6 max-w-full"
+            className="flex sm:flex-row flex-col-reverse p-6"
             ref={containerRef}
         >
-            <div className="relative sm:mr-6 sm:mt-0 mt-4 w-full h-full max-w-full">
+            <div className="relative sm:mr-6 sm:mt-0 mt-4 w-full h-full">
                 <AnimatePresence>{getScreen()}</AnimatePresence>
             </div>
             <NavBar onStepChange={(step) => setCurrentStep(step)} />

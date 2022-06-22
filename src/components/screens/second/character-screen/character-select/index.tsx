@@ -73,8 +73,12 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                         />
                     </div>
                 </div>
-                <div className="absolute bottom-0 p-4 w-full text-white flex justify-between">
-                    <div className="relative block sm:h-8 h-4 my-auto">
+                <div
+                    className=" absolute sm:top-auto sm:bottom-0 top-0 sm:p-4 p-2 text-white
+                                w-full sm:h-fit h-full
+                                flex sm:flex-row flex-col justify-between"
+                >
+                    <div className="relative block h-8 sm:my-auto">
                         <ElementIcon
                             elements={selectedCharacter.elements}
                             className="flex"

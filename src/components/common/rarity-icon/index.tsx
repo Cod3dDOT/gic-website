@@ -24,9 +24,7 @@ export const RarityIcon: React.FC<RarityIconProps> = ({
 }) => {
     return (
         <div
-            className={`relative float-${align}
-                        
-                        ${className}`}
+            className={`relative float-${align} ${className}`}
             style={{
                 width: height * 5,
                 height: height,
