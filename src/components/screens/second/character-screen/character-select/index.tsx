@@ -1,4 +1,4 @@
-import { SearchBar, SearchBarEntry } from "@components/common";
+import { ElementIcon, SearchBar, SearchBarEntry } from "@components/common";
 
 import { Character } from "@data/database";
 import { slugify } from "@data/utilities";
@@ -8,17 +8,31 @@ import { useState } from "react";
 import { Image } from "@components/common";
 import { RarityIcon } from "@components/common";
 
+const getCharacterPortrait = (character: Character) => {
+    if (character.images.portrait) return character.images.portrait;
+    if (character.images.icon) return character.images.icon;
+    if (character.images["hoyolab-avatar"])
+        return character.images["hoyolab-avatar"];
+    return "/characters/preview/not-found-dark.svg";
+};
+
+const getCharacterElement = (character: Character) => {
+    const el = slugify(character.element);
+
+    return el + ".png";
+};
+
 export interface CharacterSelectProps {
     all: Array<Character>;
     def?: number;
-    onCharacterSelect?: (character: Character) => void;
+    onCharacterSelected?: (character: Character) => void;
     className?: string;
 }
 
 export const CharacterSelect: React.FC<CharacterSelectProps> = ({
     all,
     def = 0,
-    onCharacterSelect = (character: Character) => {},
+    onCharacterSelected = (character: Character) => {},
     className = "",
 }) => {
     const [selectedCharacter, setSelectedCharacter] = useState<Character>(
@@ -33,27 +47,14 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
         );
     });
 
-    const onCharacterSelected = (character: Character) => {
+    const onCharacterSelectedCallback = (character: Character) => {
         setSelectedCharacter(character);
-    };
-
-    const getCharacterPortrait = (character: Character) => {
-        if (character.images.portrait) return character.images.portrait;
-        if (character.images["hoyolab-avatar"])
-            return character.images["hoyolab-avatar"];
-        if (character.images.icon) return character.images.icon;
-        return "/characters/preview/not-found-dark.svg";
-    };
-
-    const getCharacterElement = (character: Character) => {
-        const el = slugify(character.element);
-        if (el === "none") return "not-found-dark.svg";
-        return el + ".png";
+        onCharacterSelected(character);
     };
 
     return (
         <div
-            className={`group relative h-88 w-72 border-4 border-dark-primary-light rounded-lg overflow-hidden ${className}`}
+            className={`group relative h-full w-full border-4 border-dark-primary-light rounded-lg overflow-hidden ${className}`}
         >
             <div className="absolute w-full h-full">
                 <div className="absolute w-full h-full character-image-mask">
@@ -65,19 +66,15 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                             objectPosition="center top"
                             fallback="/icons/elements/element-not-found-dark.svg"
                             sizes="384px"
+                            smoothLoad={true}
                         />
                     </div>
                 </div>
                 <div className="absolute bottom-0 p-4 w-full text-white flex justify-between">
-                    <div className="relative block w-8 h-8 my-auto">
-                        <Image
-                            src={`/icons/elements/element-${getCharacterElement(
-                                selectedCharacter
-                            )}`}
-                            layout="fill"
-                            objectFit="contain"
-                            fallback="/icons/elements/not-found-dark.svg"
-                            sizes="64px"
+                    <div className="relative block h-8 my-auto">
+                        <ElementIcon
+                            elements={selectedCharacter.elements}
+                            className="flex"
                         />
                     </div>
                     <div className="flex flex-col">
@@ -98,7 +95,7 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                 <SearchBar
                     all={searchValues}
                     className="p-4"
-                    onSelected={(character) => onCharacterSelected(character)}
+                    onSelected={onCharacterSelectedCallback}
                 />
             </div>
         </div>

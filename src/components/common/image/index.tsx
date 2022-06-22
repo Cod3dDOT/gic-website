@@ -5,11 +5,13 @@ import { ScrollReveal } from "@components/common";
 export type ImageProps = {
     fallback?: string;
     smoothLoad?: boolean;
+    className?: string;
 } & NextImageProps;
 
 export const Image: React.FC<ImageProps> = ({
     fallback = "",
     smoothLoad = false,
+    className = "",
     ...rest
 }) => {
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -22,20 +24,21 @@ export const Image: React.FC<ImageProps> = ({
 
     return (
         <ScrollReveal
-            revealPolicy={"custom"}
+            revealPolicy="custom"
             revealed={loaded}
             duration={smoothLoad ? 1 : 0}
             delay={0.1}
-            className="relative h-full w-full"
+            className={`relative h-full w-full ${className}`}
         >
             <NextImage
                 {...rest}
                 src={imgSrc}
                 onLoadingComplete={(result) => {
-                    if (result.naturalWidth === 0) setImgSrc(fallback);
+                    if (result.naturalWidth === 0 && fallback)
+                        setImgSrc(fallback);
                 }}
                 onError={() => {
-                    setImgSrc(fallback);
+                    fallback && setImgSrc(fallback);
                 }}
                 alt=""
                 loading="lazy"

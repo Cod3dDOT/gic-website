@@ -1,8 +1,6 @@
-interface Map {
-    [key: string]: string | undefined;
-}
+import { Map } from "@data/utilities";
 
-const rarityToWidth: Map = {
+const rarityToWidth: Map<string> = {
     "0": "w-0/5",
     "1": "w-1/5",
     "2": "w-2/5",

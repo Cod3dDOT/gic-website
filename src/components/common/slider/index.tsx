@@ -1,4 +1,3 @@
-import { ScrollReveal } from "@components/common";
 import { useRef, useState } from "react";
 
 export interface SliderProps {
@@ -22,10 +21,6 @@ export const Slider: React.FC<SliderProps> = ({
     validMax = max,
     onChange = (value: number) => {},
 }) => {
-    const normalizedValue = (v: number) => {
-        return ((v - validMin) / (validMin - validMax)) * -100;
-    };
-
     const valueIndicatorRef = useRef<HTMLSpanElement>(null);
     const [progressValue, setProgressValue] = useState(value);
 
@@ -36,54 +31,30 @@ export const Slider: React.FC<SliderProps> = ({
     };
 
     return (
-        <div className=" bg-dark-primary-light p-4 text-white rounded-lg">
-            <p>{name}</p>
-            <input
-                type="range"
-                min={min}
-                max={max}
-                defaultValue={value}
-                step={step}
-                onChange={(event) => handleInput(event)}
-                className=" appearance-none focus:outline-none focus:ring-0 focus:shadow-none
-                            w-full h-1
-                          bg-dark-primary-lighter rounded-md"
-            ></input>
-            <ul className="relative flex justify-between w-full text-sm font-light">
-                <span
-                    className={`absolute block round-lg bg-dark-primary-light`}
-                    ref={valueIndicatorRef}
-                    style={{
-                        left: `${normalizedValue(progressValue)}%`,
-                        transform: `translateX(-${normalizedValue(
-                            progressValue
-                        )}%)`,
-                    }}
-                >
-                    {progressValue}
-                </span>
+        <div
+            className="group p-4 bg-dark-primary border-2 border-dark-primary-light
+                        text-white rounded-lg hover:border-dark-primary-lighter transition-colors"
+        >
+            <div className="flex justify-between">
+                <p>{name}</p>
+                <p>{progressValue}</p>
+            </div>
+            <div className="flex space-x-2 items-center text-sm font-light mt-2">
+                <span>{min}</span>
+                <input
+                    type="range"
+                    min={min}
+                    max={max}
+                    defaultValue={value}
+                    step={step}
+                    onChange={(event) => handleInput(event)}
+                    className=" appearance-none focus:outline-none focus:ring-0 focus:shadow-none
+                                w-full h-1
+                                bg-dark-primary-light rounded-md group-hover:bg-dark-primary-lighter transition-colors"
+                ></input>
 
-                <ScrollReveal
-                    revealPolicy={"custom"}
-                    revealed={
-                        progressValue >= min + step ||
-                        step / (max - min) > 1 / 50
-                    }
-                    duration={0.1}
-                >
-                    <span>{min}</span>
-                </ScrollReveal>
-                <ScrollReveal
-                    revealPolicy={"custom"}
-                    revealed={
-                        progressValue <= max - step ||
-                        step / (max - min) > 1 / 50
-                    }
-                    duration={0.1}
-                >
-                    <span>{max}</span>
-                </ScrollReveal>
-            </ul>
+                <span>{max}</span>
+            </div>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import {
-    Icon,
+    RemixIcon,
     ScrollReveal,
     ScreenContainer,
     RevealPresets,
@@ -76,7 +76,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
             <div className="text-white m-auto absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
                 <ScrollReveal hidden={RevealPresets.Top}>
                     <Button theme="none" onClick={() => executeScroll()}>
-                        <Icon icon="ri-mouse-fill"></Icon>
+                        <RemixIcon icon="ri-mouse-fill" />
                         <p className="mt-2">Scroll down to start</p>
                     </Button>
                 </ScrollReveal>

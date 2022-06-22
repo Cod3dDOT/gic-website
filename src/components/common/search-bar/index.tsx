@@ -1,5 +1,5 @@
-import { Image, ScrollReveal, RarityIcon } from "@components/common";
-import { AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { Image, ScrollReveal, RarityIcon, RemixIcon } from "@components/common";
+import { AnimatePresence } from "framer-motion";
 
 import { useState } from "react";
 
@@ -7,7 +7,7 @@ export class SearchBarEntry<T> {
     searchValue: string;
     value: T;
     preview: string;
-    public id: number = -1;
+    id: number = -1;
 
     constructor(searchValue: string, value: T, preview: string = "") {
         this.searchValue = searchValue;
@@ -33,17 +33,22 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     all = all.map((entry, index) => ({ ...entry, id: index }));
 
     return (
-        <div className={`w-full h-full ${className}`}>
-            <input
-                placeholder={placeholder}
-                className="w-full h-12 rounded-lg px-2 appearance-none outline-none shadow-lg mb-2"
-                onChange={(event) => setQuery(event.target.value.toLowerCase())}
-            />
+        <div className={`w-full h-full text-white ${className}`}>
+            <div className="flex items-center bg-dark-primary mb-2 h-12 px-2 rounded-lg border-2 border-transparent transition-colors focus-within:border-white">
+                <RemixIcon icon="ri-search-2-line" className="mx-2" />
+                <input
+                    placeholder={placeholder}
+                    className="w-full px-2 rounded-lg appearance-none outline-none shadow-lg bg-dark-primary"
+                    onChange={(event) =>
+                        setQuery(event.target.value.toLowerCase())
+                    }
+                />
+            </div>
             <div className="w-full h-full overflow-y-auto space-y-1">
                 <AnimatePresence>
                     {all
                         .filter((entry) => {
-                            if (query.length < 1) return;
+                            if (query.length < 1) return entry;
 
                             if (
                                 entry.searchValue
@@ -53,20 +58,20 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                                 return entry;
                             }
                         })
-                        .map((entry, index) => (
+                        .map((entry) => (
                             <ScrollReveal
-                                revealPolicy="custom"
-                                revealed={true}
-                                delay={index / 20}
+                                revealPolicy="scroll"
+                                delay={0.05}
                                 duration={0.1}
                                 hidden={{ x: -5 }}
+                                exit={{ x: -5 }}
                                 key={"character-select-" + entry.id}
                             >
                                 <div
                                     className="flex justify-between
                                     w-full h-12 p-2
-                                    text-white  bg-dark-primary shadow-lg
-                                    border-2 rounded-lg border-dark-primary hover:border-white transition-colors
+                                    bg-dark-primary shadow-lg rounded-lg
+                                    border-2 border-dark-primary hover:border-white transition-colors
                                     cursor-pointer"
                                     onClick={() => onSelected(entry.value)}
                                 >

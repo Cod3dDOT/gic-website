@@ -1,4 +1,4 @@
-import { Icon, Image } from "@components/common";
+import { RemixIcon, Image } from "@components/common";
 
 const ButtonThemes = {
     none: {
@@ -62,7 +62,7 @@ export const Button: React.FC<ButtonProps> = ({
             break;
 
         case "icon":
-            childElements = <Icon icon={icon}></Icon>;
+            childElements = <RemixIcon icon={icon} />;
             break;
 
         case "image":
