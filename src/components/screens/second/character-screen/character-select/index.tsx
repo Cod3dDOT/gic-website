@@ -67,6 +67,7 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                             fallback="/icons/elements/element-not-found-dark.svg"
                             sizes="384px"
                             smoothLoad={true}
+                            alt=""
                         />
                     </div>
                 </div>

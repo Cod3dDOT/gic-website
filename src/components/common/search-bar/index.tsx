@@ -87,6 +87,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                                             fallback="/characters/preview/not-found-dark.svg"
                                             sizes="32px"
                                             smoothLoad={true}
+                                            alt=""
                                         />
                                     </div>
                                     <div className="flex flex-col my-auto">

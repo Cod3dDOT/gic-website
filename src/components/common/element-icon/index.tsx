@@ -26,7 +26,8 @@ export const ElementIcon: React.FC<ElementIconProps> = ({
                         className="aspect-square"
                         key={`element-icon-${element}`}
                         sizes="64px"
-                    ></Image>
+                        alt=""
+                    />
                 );
             })}
         </div>

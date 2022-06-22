@@ -76,7 +76,7 @@ export const Select: React.FC<SelectProps> = ({
                         ref={optionsRef}
                         className="absolute mt-1 min-w-[4rem] max-h-48 overflow-y-scroll text-sm font-light bg-dark-primary-light rounded-md"
                     >
-                        {all.map((option) => {
+                        {all.map((option, index) => {
                             return (
                                 <button
                                     className={`px-3 py-[0.4rem] flex flex-col w-full ${
@@ -88,6 +88,7 @@ export const Select: React.FC<SelectProps> = ({
                                         setSelectedValue(option);
                                         toggle(false);
                                     }}
+                                    key={`select-${index}`}
                                 >
                                     {option.selectValue}
                                 </button>

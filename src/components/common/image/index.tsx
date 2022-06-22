@@ -40,7 +40,7 @@ export const Image: React.FC<ImageProps> = ({
                 onError={() => {
                     fallback && setImgSrc(fallback);
                 }}
-                alt=""
+                alt={rest.alt ? "" : rest.alt}
                 loading="lazy"
             />
         </ScrollReveal>

@@ -42,6 +42,7 @@ export const CharacterScreen: React.FC<CharacterScreenProps> = ({
                                     src={`/icons/weapon-types/icon-${selectedCharacter?.weapontype.toLowerCase()}.webp`}
                                     layout="fill"
                                     smoothLoad={true}
+                                    alt=""
                                 />
                             </div>
                             <div className="p-1 whitespace-nowrap">
@@ -54,6 +55,7 @@ export const CharacterScreen: React.FC<CharacterScreenProps> = ({
                                     src={`/icons/weapon-types/icon-${selectedCharacter?.weapontype.toLowerCase()}.webp`}
                                     layout="fill"
                                     smoothLoad={true}
+                                    alt=""
                                 />
                             </div>
                             <p className="p-1 whitespace-nowrap">
