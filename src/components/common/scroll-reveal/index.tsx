@@ -78,8 +78,9 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
     hidden = getValidParams({ ...defaultHidden, ...hidden });
     visible = getValidParams({ ...defaultVisible, ...visible });
-    if (exit !== undefined)
+    if (exit !== undefined) {
         exit = getValidParams({ ...defaultHidden, ...exit });
+    }
 
     const control = useAnimation();
 

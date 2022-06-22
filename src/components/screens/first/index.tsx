@@ -10,6 +10,7 @@ import chImage1 from "@public/characters/chun-yun.webp";
 import chImage2 from "@public/characters/bei-dou.webp";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface Props {
     secondScreen: React.RefObject<HTMLDivElement>;
@@ -23,18 +24,36 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
 
     return (
         <ScreenContainer>
-            <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 flex flex-col">
+            <div
+                className=" absolute top-1/2
+                            sm:left-1/4 left-1/2
+                            -translate-x-1/2 -translate-y-1/2
+                            flex flex-col z-10"
+            >
                 <ScrollReveal>
                     <div className="text-white font-medium">
-                        <h1 className="text-5xl">Genshin Impact</h1>
-                        <h1 className="text-7xl text-end ml-24">Calculator</h1>
-                        <ScrollReveal
-                            hidden={{
-                                ...RevealPresets.Top,
-                                delay: 0.4,
-                            }}
+                        <h1
+                            className=" xl:text-5xl lg:text-4xl sm:text-3xl text-2xl
+                                        whitespace-nowrap"
                         >
-                            <p className="text-end font-thin text-dark-blue">
+                            Genshin Impact
+                        </h1>
+                        <h1
+                            className=" text-center sm:text-end
+                                        xl:text-7xl lg:text-6xl sm:text-4xl text-4xl
+                                        xl:ml-24 lg:ml-16 sm:ml-16 ml-0"
+                        >
+                            Calculator
+                        </h1>
+                        <ScrollReveal
+                            delay={0.4}
+                            hidden={{ ...RevealPresets.Top }}
+                        >
+                            <p
+                                className=" text-end text-dark-blue
+                                            sm:font-thin sm:text-xl font-medium text-sm
+                                            sm:w-full sm:m-0 w-fit ml-auto"
+                            >
                                 v0.1-alpha
                             </p>
                         </ScrollReveal>
@@ -42,13 +61,15 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                 </ScrollReveal>
             </div>
             <div
-                className={`screen-image-mask absolute flex top-1/2 right-1/4
-                            -translate-y-1/2 translate-x-1/2
-                            xl:h-[46rem] lg:h-[36rem] w-full max-w-[50%]`}
+                className={`screen-image-mask absolute
+                            top-1/2 sm:left-3/4 left-0
+                            -translate-y-1/2 sm:-translate-x-1/2
+                            xl:h-[46rem] lg:h-[36rem] md:h-[30rem] sm:h-[24rem] h-1/2
+                            w-full sm:max-w-[50%]`}
             >
                 <ScrollReveal
                     hidden={RevealPresets.Left}
-                    className="absolute top-0 left-0 w-4/5 h-[90%]"
+                    className="absolute left-0 top-0 sm:w-4/5 w-3/5 h-[90%]"
                 >
                     <Image
                         src={chImage1}
@@ -73,7 +94,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                 </ScrollReveal>
             </div>
 
-            <div className="text-white m-auto absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
+            <div className="text-white absolute sm:bottom-10 bottom-4 left-1/2 -translate-x-1/2 text-center">
                 <ScrollReveal hidden={RevealPresets.Top}>
                     <Button theme="none" onClick={() => executeScroll()}>
                         <RemixIcon icon="ri-mouse-fill" />

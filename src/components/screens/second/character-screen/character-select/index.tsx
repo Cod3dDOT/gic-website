@@ -54,7 +54,9 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
 
     return (
         <div
-            className={`group relative h-full w-full border-4 border-dark-primary-light rounded-lg overflow-hidden ${className}`}
+            className={`group relative h-full w-full
+                        border-4 border-dark-primary-light rounded-lg
+                        overflow-hidden ${className}`}
         >
             <div className="absolute w-full h-full">
                 <div className="absolute w-full h-full character-image-mask">
@@ -72,7 +74,7 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                     </div>
                 </div>
                 <div className="absolute bottom-0 p-4 w-full text-white flex justify-between">
-                    <div className="relative block h-8 my-auto">
+                    <div className="relative block sm:h-8 h-4 my-auto">
                         <ElementIcon
                             elements={selectedCharacter.elements}
                             className="flex"

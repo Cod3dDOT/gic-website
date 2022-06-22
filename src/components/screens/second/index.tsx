@@ -51,14 +51,14 @@ export const SecondScreen: React.FC<SecondScreenProps> = ({ containerRef }) => {
     };
 
     return (
-        <ScreenContainer className="flex p-6" ref={containerRef}>
-            <div className="relative mr-6 w-full h-full">
+        <ScreenContainer
+            className="flex sm:flex-row flex-col-reverse p-6 max-w-full"
+            ref={containerRef}
+        >
+            <div className="relative sm:mr-6 sm:mt-0 mt-4 w-full h-full max-w-full">
                 <AnimatePresence>{getScreen()}</AnimatePresence>
             </div>
-            <NavBar
-                onStepChange={(step) => setCurrentStep(step)}
-                className="z-10"
-            />
+            <NavBar onStepChange={(step) => setCurrentStep(step)} />
         </ScreenContainer>
     );
 };

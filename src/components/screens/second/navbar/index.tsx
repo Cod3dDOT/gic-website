@@ -25,14 +25,14 @@ export const NavBar: React.FC<NavBarProps> = ({
     };
 
     return (
-        <div className={`flex flex-col justify-between ${className}`}>
+        <div className={`flex sm:flex-col justify-between z-10 ${className}`}>
             <Button
                 icon="ri-information-fill text-3xl"
                 theme="none"
                 className="p-2"
                 onClick={() => setInfoOpen(!infoOpen)}
             ></Button>
-            <div className="flex flex-col space-y-4">
+            <div className="flex sm:flex-col gap-4">
                 <Button
                     icon="ri-group-fill text-2xl"
                     className={`p-0 w-[50px] h-[50px] ${
