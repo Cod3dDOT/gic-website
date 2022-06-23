@@ -9,9 +9,11 @@ const Home: React.FC = () => {
     return (
         <React.StrictMode>
             <Header />
-            <FirstScreen secondScreen={secondScreenRef} />
-            <SecondScreen containerRef={secondScreenRef} />
-            <Footer />
+            <div className="space-y-8">
+                <FirstScreen secondScreen={secondScreenRef} />
+                <SecondScreen containerRef={secondScreenRef} />
+                <Footer />
+            </div>
         </React.StrictMode>
     );
 };

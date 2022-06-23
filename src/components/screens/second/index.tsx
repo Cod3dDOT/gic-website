@@ -1,15 +1,10 @@
-import {
-    ScreenContainer,
-    ScrollReveal,
-    RevealPresets,
-} from "@components/common";
+import { ScreenContainer, ScrollReveal } from "@components/common";
 
 import { CharacterScreen } from "./character-screen";
 import { WeaponScreen } from "./weapon-screen";
 import { NavBar } from "./navbar";
 
 import { useState } from "react";
-import { AnimatePresence } from "framer-motion";
 
 export interface SecondScreenProps {
     containerRef: React.RefObject<HTMLDivElement>;
@@ -18,38 +13,9 @@ export interface SecondScreenProps {
 export const SecondScreen: React.FC<SecondScreenProps> = ({ containerRef }) => {
     const [currentStep, setCurrentStep] = useState<number>(0);
 
-    const getScreen = () => {
-        switch (currentStep) {
-            case 0:
-                return (
-                    <ScrollReveal
-                        revealPolicy="scroll"
-                        delay={0.5}
-                        duration={0.5}
-                        hidden={{ x: 0 }}
-                        exit={{ x: -100 }}
-                        key="second-screen-characters"
-                        className="absolute h-full w-full"
-                    >
-                        <CharacterScreen className="absolute w-full h-full" />
-                    </ScrollReveal>
-                );
-
-            case 1:
-                return (
-                    <ScrollReveal
-                        revealPolicy="scroll"
-                        delay={0.5}
-                        duration={0.5}
-                        hidden={{ x: 0 }}
-                        exit={{ x: -100 }}
-                        key="second-screen-weapons"
-                        className="absolute w-full h-full"
-                    >
-                        <WeaponScreen className="relative w-full h-full" />
-                    </ScrollReveal>
-                );
-        }
+    const getStyles = (index: number) => {
+        if (index !== currentStep) return "-translate-x-[100px] opacity-0";
+        return "z-10";
     };
 
     return (
@@ -58,7 +24,20 @@ export const SecondScreen: React.FC<SecondScreenProps> = ({ containerRef }) => {
             ref={containerRef}
         >
             <div className="relative sm:mr-6 sm:mt-0 mt-4 w-full h-full">
-                <AnimatePresence>{getScreen()}</AnimatePresence>
+                <CharacterScreen
+                    className={`absolute w-full h-full transition-all duration-1000
+                                ${getStyles(0)}`}
+                />
+
+                <WeaponScreen
+                    className={`absolute w-full h-full transition-all duration-1000
+                                ${getStyles(1)}`}
+                />
+
+                <div
+                    className={`absolute w-full h-full transition-all duration-1000
+                                ${getStyles(2)}`}
+                ></div>
             </div>
             <NavBar onStepChange={(step) => setCurrentStep(step)} />
         </ScreenContainer>

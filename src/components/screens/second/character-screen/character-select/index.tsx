@@ -1,7 +1,6 @@
 import { ElementIcon, SearchBar, SearchBarEntry } from "@components/common";
 
 import { Character } from "@data/database";
-import { slugify } from "@data/utilities";
 
 import { useState } from "react";
 
@@ -11,15 +10,10 @@ import { RarityIcon } from "@components/common";
 const getCharacterPortrait = (character: Character) => {
     if (character.images.portrait) return character.images.portrait;
     if (character.images.icon) return character.images.icon;
-    if (character.images["hoyolab-avatar"])
+    if (character.images["hoyolab-avatar"]) {
         return character.images["hoyolab-avatar"];
+    }
     return "/characters/preview/not-found-dark.svg";
-};
-
-const getCharacterElement = (character: Character) => {
-    const el = slugify(character.element);
-
-    return el + ".png";
 };
 
 export interface CharacterSelectProps {
@@ -63,22 +57,19 @@ export const CharacterSelect: React.FC<CharacterSelectProps> = ({
                     <div className="relative block mt-4 w-full h-full">
                         <Image
                             src={getCharacterPortrait(selectedCharacter)}
-                            layout="fill"
                             objectFit="cover"
                             objectPosition="center top"
                             fallback="/icons/elements/element-not-found-dark.svg"
                             sizes="384px"
-                            smoothLoad={true}
-                            alt=""
                         />
                     </div>
                 </div>
                 <div
-                    className=" absolute sm:top-auto sm:bottom-0 top-0 sm:p-4 p-2 text-white
-                                w-full sm:h-fit h-full
-                                flex sm:flex-row flex-col justify-between"
+                    className=" absolute lg:top-auto lg:bottom-0 top-0 sm:p-4 p-2
+                                w-full lg:h-fit h-full
+                                flex lg:flex-row flex-col justify-between"
                 >
-                    <div className="relative block h-8 sm:my-auto">
+                    <div className="relative block h-8 lg:my-auto">
                         <ElementIcon
                             elements={selectedCharacter.elements}
                             className="flex"

@@ -1,12 +1,16 @@
-import { Button, ScrollReveal, RevealPresets } from "@components/common";
+import { Button, ScrollReveal } from "@components/common";
+
+import { RiHome5Fill } from "react-icons/ri";
 
 export const Header: React.FC = () => {
     return (
-        <ScrollReveal hidden={RevealPresets.Bottom}>
+        <ScrollReveal hidden="opacity-0 translate-y-[30px]">
             <div className="absolute flex w-screen sm:p-6 p-4 z-10">
-                <Button icon="ri-home-5-fill"></Button>
+                <Button>
+                    <RiHome5Fill />
+                </Button>
                 <span className="flex-grow"></span>
-                <Button text="News"></Button>
+                <Button>News</Button>
             </div>
         </ScrollReveal>
     );

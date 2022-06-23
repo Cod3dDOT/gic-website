@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { default as NextImage, ImageProps as NextImageProps } from "next/image";
-import { ScrollReveal } from "@components/common";
 
 export type ImageProps = {
     fallback?: string;
@@ -10,39 +9,56 @@ export type ImageProps = {
 
 export const Image: React.FC<ImageProps> = ({
     fallback = "",
-    smoothLoad = false,
+    smoothLoad = true,
     className = "",
+
+    src,
+    sizes,
+    alt = "",
+    objectFit = "contain",
+    layout = "fill",
+    loading = "lazy",
+
     ...rest
 }) => {
     const [loaded, setLoaded] = useState<boolean>(false);
-    const [imgSrc, setImgSrc] = useState(rest.src);
+    const [imgSrc, setImgSrc] = useState(src);
 
     useEffect(() => {
-        setImgSrc(rest.src);
+        setImgSrc(src);
+    }, [src]);
+
+    const onLoad = (result: {
+        naturalWidth: number;
+        naturalHeight: number;
+    }) => {
+        if (result.naturalWidth === 0 && fallback) {
+            setImgSrc(fallback);
+        }
         setLoaded(true);
-    }, [rest.src]);
+    };
+
+    const onError = () => {
+        if (fallback) setImgSrc(fallback);
+        setLoaded(true);
+    };
 
     return (
-        <ScrollReveal
-            revealPolicy="custom"
-            revealed={loaded}
-            duration={smoothLoad ? 1 : 0}
-            delay={0.1}
-            className={`relative h-full w-full ${className}`}
+        <div
+            className={`relative h-full w-full transition-opacity duration-300
+                        ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
         >
             <NextImage
-                {...rest}
                 src={imgSrc}
-                onLoadingComplete={(result) => {
-                    if (result.naturalWidth === 0 && fallback)
-                        setImgSrc(fallback);
-                }}
-                onError={() => {
-                    fallback && setImgSrc(fallback);
-                }}
-                alt={rest.alt ? "" : rest.alt}
-                loading="lazy"
+                onLoadingComplete={onLoad}
+                onError={onError}
+                alt={alt}
+                layout={layout}
+                objectFit={objectFit}
+                loading={loading}
+                sizes={sizes}
+                {...rest}
             />
-        </ScrollReveal>
+        </div>
     );
 };

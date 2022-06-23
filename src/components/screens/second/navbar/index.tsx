@@ -1,4 +1,10 @@
 import { Button } from "@components/common";
+import {
+    RiInformationFill,
+    RiGroupFill,
+    RiSwordFill,
+    RiPlayFill,
+} from "react-icons/ri";
 
 import { useState } from "react";
 
@@ -6,11 +12,6 @@ export interface NavBarProps {
     onStepChange?: (index: number) => void;
     className?: string;
 }
-
-const NavBarButtonStates = {
-    inactive: "border-dark-primary-light hover:border-white",
-    active: "bg-white text-black",
-};
 
 export const NavBar: React.FC<NavBarProps> = ({
     onStepChange = (index) => {},
@@ -24,48 +25,45 @@ export const NavBar: React.FC<NavBarProps> = ({
         onStepChange(index);
     };
 
+    const getStyles = (index: number) => {
+        if (index === currentStep) return "border-white bg-dark-primary-light";
+        return "";
+    };
+
     return (
         <div className={`flex sm:flex-col justify-between z-10 ${className}`}>
             <Button
-                icon="ri-information-fill text-3xl"
                 theme="none"
-                className="p-2"
+                className="p-0 aspect-square"
                 onClick={() => setInfoOpen(!infoOpen)}
-            ></Button>
+            >
+                <RiInformationFill className="h-8 w-8 m-auto" />
+            </Button>
             <div className="flex sm:flex-col gap-4">
                 <Button
-                    icon="ri-group-fill text-2xl"
-                    className={`p-0 w-[50px] h-[50px] ${
-                        currentStep === 0
-                            ? NavBarButtonStates["active"]
-                            : NavBarButtonStates["inactive"]
-                    }`}
+                    className={`p-0 aspect-square ${getStyles(0)}`}
                     onClick={() => handleButtonClick(0)}
-                ></Button>
+                >
+                    <RiGroupFill className="h-6 w-6" />
+                </Button>
                 <Button
-                    icon="ri-sword-fill text-2xl"
-                    className={`p-0 w-[50px] h-[50px] ${
-                        currentStep === 1
-                            ? NavBarButtonStates["active"]
-                            : NavBarButtonStates["inactive"]
-                    }`}
+                    className={`p-0 aspect-square ${getStyles(1)}`}
                     onClick={() => handleButtonClick(1)}
-                ></Button>
+                >
+                    <RiSwordFill className="h-6 w-6" />
+                </Button>
                 <Button
                     image="/icons/icon_artifacts.webp"
-                    className={`relative p-1 w-[50px] h-[50px] ${
-                        currentStep === 2
-                            ? NavBarButtonStates["active"]
-                            : NavBarButtonStates["inactive"]
-                    }`}
+                    className={`p-2 w-[50px] h-[50px] ${getStyles(2)}`}
                     onClick={() => handleButtonClick(2)}
                 ></Button>
             </div>
             <Button
-                icon="ri-play-fill"
                 onHoverEffects={false}
-                className="border-dark-primary-light text-3xl p-2"
-            ></Button>
+                className="p-2 aspect-square text-dark-primary-light"
+            >
+                <RiPlayFill className="w-6 h-6" />
+            </Button>
         </div>
     );
 };

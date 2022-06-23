@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 export interface SliderProps {
     name: string;
@@ -6,8 +6,6 @@ export interface SliderProps {
     max?: number;
     value?: number;
     step?: number;
-    validMin?: number;
-    validMax?: number;
     onChange?: (value: number) => void;
 }
 
@@ -17,11 +15,8 @@ export const Slider: React.FC<SliderProps> = ({
     max = 100,
     value = 0,
     step = 1,
-    validMin = min,
-    validMax = max,
     onChange = (value: number) => {},
 }) => {
-    const valueIndicatorRef = useRef<HTMLSpanElement>(null);
     const [progressValue, setProgressValue] = useState(value);
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,14 +27,14 @@ export const Slider: React.FC<SliderProps> = ({
 
     return (
         <div
-            className="group p-4 bg-dark-primary border-2 border-dark-primary-light
-                        text-white rounded-lg hover:border-dark-primary-lighter transition-colors"
+            className="group p-4 border-2 rounded-md transition-colors
+                    bg-dark-primary border-dark-primary-light"
         >
             <div className="flex justify-between">
                 <p>{name}</p>
                 <p>{progressValue}</p>
             </div>
-            <div className="flex space-x-2 items-center text-sm font-light mt-2">
+            <div className="flex space-x-2 items-center text-sm mt-2 text-neutral-300">
                 <span>{min}</span>
                 <input
                     type="range"

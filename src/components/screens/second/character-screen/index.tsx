@@ -1,4 +1,4 @@
-import { Image, RemixIcon, Slider } from "@components/common";
+import { Image, Slider } from "@components/common";
 import { CharacterSelect } from "./character-select";
 
 import { getCharacters, Character } from "@data/database";
@@ -20,9 +20,11 @@ export const CharacterScreen: React.FC<CharacterScreenProps> = ({
 
     return (
         <div className={`flex flex-col ${className}`}>
-            <h1 className="text-white text-4xl mb-6 font-medium">Character</h1>
+            <h1 className="sm:text-4xl sm:text-left text-2xl text-center mb-6 font-medium">
+                Character
+            </h1>
             <div className="flex sm:flex-row flex-col gap-4 h-full overflow-hidden">
-                <div className="flex sm:flex-col flex-row gap-4 xl:w-72 lg:w-64 md:w-48 sm:w-48 w-full">
+                <div className="flex sm:flex-col flex-row gap-4 xl:w-72 lg:w-64 md:w-60 sm:w-48 w-full">
                     <CharacterSelect
                         all={characters}
                         onCharacterSelected={setSelectedCharacter}
@@ -36,14 +38,13 @@ export const CharacterScreen: React.FC<CharacterScreenProps> = ({
                             </blockquote>
                         </div>
 
-                        <div className="flex text-white flex-wrap gap-2 justify-between">
+                        <div className="flex flex-wrap gap-2 justify-between">
                             <div className="flex justify-between bg-dark-primary p-1 w-full max-w-full rounded-md">
                                 <div className="aspect-square">
                                     <Image
                                         src={`/icons/weapon-types/icon-${selectedCharacter.weapontype.toLowerCase()}.webp`}
-                                        layout="fill"
-                                        smoothLoad={true}
-                                        alt=""
+                                        sizes="32px"
+                                        width={0}
                                     />
                                 </div>
                                 <div className="p-1 whitespace-nowrap">
@@ -54,9 +55,8 @@ export const CharacterScreen: React.FC<CharacterScreenProps> = ({
                                 <div className="aspect-square">
                                     <Image
                                         src={`/icons/weapon-types/icon-${selectedCharacter.weapontype.toLowerCase()}.webp`}
-                                        layout="fill"
-                                        smoothLoad={true}
-                                        alt=""
+                                        sizes="32px"
+                                        width={0}
                                     />
                                 </div>
                                 <p className="p-1 whitespace-nowrap">
@@ -66,18 +66,34 @@ export const CharacterScreen: React.FC<CharacterScreenProps> = ({
                         </div>
                     </div>
                 </div>
-                <div className="flex sm:flex-row flex-col overflow-y-auto gap-4 flex-grow">
-                    <div className="xl:w-72 lg:w-60 md:w-48 space-y-4">
-                        <Slider name="Character Level" step={1} max={90} />
-                        <Slider name="Constellations" max={6} />
-                        <Select
-                            name="Character Level"
-                            all={EntryFromArray([
-                                0, 10, 20, 30, 40, 50, 60, 70, 80, 90,
-                            ])}
-                        >
-                            <RemixIcon icon="ri-search-2-line"></RemixIcon>
-                        </Select>
+                <div className="flex lg:flex-row flex-col overflow-y-auto gap-4 flex-grow">
+                    <div
+                        className="lg:flex-col md:flex-row flex flex-col
+                                    lg:max-h-full sm:max-h-[50%] lg:w-64
+                                    gap-8 border-4 border-dark-primary-light overflow-y-auto"
+                    >
+                        <div className="flex flex-col gap-4 lg:w-auto md:w-full">
+                            <h3 className="text-xl">Header</h3>
+                            <Slider name="Character Level" step={1} max={90} />
+                            <Slider name="Constellations" max={6} />
+                            <Select
+                                name="Character Level"
+                                all={EntryFromArray([
+                                    0, 10, 20, 30, 40, 50, 60, 70, 80, 90,
+                                ])}
+                            />
+                        </div>
+                        <div className="flex flex-col gap-4 lg:w-auto md:w-full">
+                            <h3 className="text-xl">Header</h3>
+                            <Slider name="Character Level" step={1} max={90} />
+                            <Slider name="Constellations" max={6} />
+                            <Select
+                                name="Character Level"
+                                all={EntryFromArray([
+                                    0, 10, 20, 30, 40, 50, 60, 70, 80, 90,
+                                ])}
+                            />
+                        </div>
                     </div>
                     <div className="border-4 border-dark-primary-light flex-grow"></div>
                 </div>

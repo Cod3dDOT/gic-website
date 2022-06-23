@@ -29,7 +29,7 @@ export const Tooltip: React.FC<ITooltipProps> = ({
 
             <div
                 className={`absolute w-max max-w-[10rem] max-h-fit
-                            font-poppins p-2 text-sm leading-tight text-white
+                            p-2 text-sm leading-tight 
                             shadow-lg shadow-dark-primary bg-dark-primary-dark rounded-md border-2 border-dark-primary-light
                             opacity-0 invisible peer-hover:visible peer-hover:opacity-100 transition-all ${TooltipPositions[position]}`}
             >

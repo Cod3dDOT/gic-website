@@ -1,16 +1,14 @@
 import {
-    RemixIcon,
     ScrollReveal,
     ScreenContainer,
-    RevealPresets,
     Button,
+    Image,
 } from "@components/common";
+
+import { RiMouseFill } from "react-icons/ri";
 
 import chImage1 from "@public/characters/chun-yun.webp";
 import chImage2 from "@public/characters/bei-dou.webp";
-
-import Image from "next/image";
-import { useEffect, useState } from "react";
 
 interface Props {
     secondScreen: React.RefObject<HTMLDivElement>;
@@ -30,8 +28,8 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                             -translate-x-1/2 -translate-y-1/2
                             flex flex-col z-10"
             >
-                <ScrollReveal>
-                    <div className="text-white font-medium">
+                <ScrollReveal hidden="opacity-0">
+                    <div className="font-medium">
                         <h1
                             className=" xl:text-5xl lg:text-4xl sm:text-3xl text-2xl
                                         whitespace-nowrap"
@@ -45,10 +43,7 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                         >
                             Calculator
                         </h1>
-                        <ScrollReveal
-                            delay={0.4}
-                            hidden={{ ...RevealPresets.Top }}
-                        >
+                        <ScrollReveal delay={0.4} hidden="-translate-y-[30px]">
                             <p
                                 className=" text-end text-dark-blue
                                             sm:font-thin sm:text-xl font-medium text-sm
@@ -68,37 +63,26 @@ export const FirstScreen: React.FC<Props> = ({ secondScreen }) => {
                             w-full sm:max-w-[50%]`}
             >
                 <ScrollReveal
-                    hidden={RevealPresets.Left}
+                    hidden="-translate-x-[30px]"
                     className="absolute left-0 top-0 sm:w-4/5 w-3/5 h-[90%]"
                 >
-                    <Image
-                        src={chImage1}
-                        layout="fill"
-                        objectFit="contain"
-                        alt=""
-                        sizes="384px"
-                    ></Image>
+                    <Image src={chImage1} sizes="384px" />
                 </ScrollReveal>
 
                 <ScrollReveal
-                    hidden={{ ...RevealPresets.Left, delay: 0.4 }}
+                    delay={0.4}
+                    hidden="-translate-x-[30px]"
                     className="absolute -bottom-20 right-0 w-3/5 h-full -z-10"
                 >
-                    <Image
-                        src={chImage2}
-                        layout="fill"
-                        objectFit="contain"
-                        alt=""
-                        sizes="384px"
-                    ></Image>
+                    <Image src={chImage2} sizes="384px" />
                 </ScrollReveal>
             </div>
 
-            <div className="text-white absolute sm:bottom-10 bottom-4 left-1/2 -translate-x-1/2 text-center">
-                <ScrollReveal hidden={RevealPresets.Top}>
+            <div className="absolute sm:bottom-10 bottom-4 left-1/2 -translate-x-1/2 text-center">
+                <ScrollReveal hidden="-translate-y-[30px]">
                     <Button theme="none" onClick={() => executeScroll()}>
-                        <RemixIcon icon="ri-mouse-fill" />
-                        <p className="mt-2">Scroll down to start</p>
+                        <RiMouseFill />
+                        <p className="mt-4">Scroll down to start</p>
                     </Button>
                 </ScrollReveal>
             </div>

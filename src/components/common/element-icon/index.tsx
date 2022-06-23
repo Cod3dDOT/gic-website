@@ -20,13 +20,10 @@ export const ElementIcon: React.FC<ElementIconProps> = ({
                 return (
                     <Image
                         src={getIconPath(element, ".png")}
-                        layout="fill"
-                        objectFit="contain"
                         fallback={getIconPath("not-found-dark", ".svg")}
-                        className="aspect-square w-auto"
-                        key={`element-icon-${element}`}
                         sizes="64px"
-                        alt=""
+                        key={`element-icon-${element}`}
+                        className="aspect-square w-auto"
                     />
                 );
             })}

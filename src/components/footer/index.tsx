@@ -1,39 +1,33 @@
-import { ScrollReveal } from "@components/common";
+import { Image } from "@components/common";
 
 import logoImage from "@public/footer/logo.svg";
 
-import Image from "next/image";
-
 export const Footer: React.FC = () => {
     return (
-        <ScrollReveal>
-            <div
-                className=" relative flex w-full
-                            justify-center drop-shadow-lg shadow-lg p-4
-                            text-white border-t-2 border-dark-blue"
-            >
-                <div className="relative block sm:w-20 w-16 m-2">
-                    <Image
-                        src={logoImage}
-                        layout="fill"
-                        objectFit={"contain"}
-                        alt=""
-                    ></Image>
+        <div
+            className=" relative sm:flex block w-full bg-dark-primary
+                        justify-between drop-shadow-lg shadow-lg p-8
+                        border-t-2 border-dark-blue"
+        >
+            <div className="flex">
+                <div className="relative block sm:w-16 w-16 aspect-square mr-8">
+                    <Image src={logoImage}></Image>
                 </div>
-                <div className="relative block">
+                <div className="flex-grow">
                     <p className="sm:text-2xl text-lg font-medium">
-                        Genshin Impact Calculator
+                        Genshin Impact
                     </p>
-                    <p className="text-dark-blue text-xs text-end pb-1 mb-2 border-b-2 border-white">
-                        v0.1-alpha
+                    <p className="sm:text-2xl text-lg font-medium">
+                        Calculator
                     </p>
-                    <div className="flex text-xs text-neutral-400">
-                        <p>Developed by Cod3d</p>
-                        <span className="flex-grow"></span>
-                        <p className="text-end">2022 All rights reserved</p>
-                    </div>
+                    <p className="text-dark-blue text-sm">v0.1-alpha</p>
                 </div>
             </div>
-        </ScrollReveal>
+            <div className="sm:mt-auto sm:block flex mt-12 text-xs text-neutral-400">
+                <p>Developed by Cod3d</p>
+                <span className="flex-grow"></span>
+                <p className="text-end">2022 All rights reserved</p>
+            </div>
+        </div>
     );
 };

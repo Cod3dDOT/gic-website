@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Button } from "../button";
-import { RemixIcon } from "../remix-icon";
+
+import { RiArrowDownSLine } from "react-icons/ri";
 
 export const EntryFromArray = (all: string[] | number[]) => {
     return all.map((entry) => {
@@ -47,28 +48,27 @@ export const Select: React.FC<SelectProps> = ({
 
     return (
         <div
-            className={`flex text-white w-full justify-between bg-dark-primary border-2 border-dark-primary-light rounded-lg ${className}`}
+            className={`flex w-full justify-between bg-dark-primary border-2 border-dark-primary-light rounded-md ${className}`}
         >
             <div className="p-2">{name}</div>
             <div className="relative">
                 <Button
                     theme="none"
-                    className="p-0 flex items-center bg-dark-primary-light rounded-md pl-4 px-2 space-x-3 text-sm h-full"
-                    text={selectedValue.selectValue}
+                    className="p-0 bg-dark-primary-light rounded-md px-2 space-x-3 text-sm h-full"
                     onClick={() => toggle(!isOpened)}
-                    onBlur={(event) => {
-                        // if (event.target !== optionsRef.current) toggle(false);
-                    }}
                 >
-                    <div
-                        className="transition-transform text-lg"
-                        style={{
-                            transform: isOpened
-                                ? "rotate(180deg)"
-                                : "rotate(0deg)",
-                        }}
-                    >
-                        <RemixIcon icon="ri-arrow-down-s-line" />
+                    <div className="flex flex-grow w-full items-center">
+                        <p className="px-2">{selectedValue.selectValue}</p>
+                        <div
+                            className="transition-transform text-lg"
+                            style={{
+                                transform: isOpened
+                                    ? "rotate(180deg)"
+                                    : "rotate(0deg)",
+                            }}
+                        >
+                            <RiArrowDownSLine />
+                        </div>
                     </div>
                 </Button>
                 {isOpened && (

@@ -9,7 +9,7 @@ export const WeaponScreen: React.FC<WeaponScreenProps> = ({
 }) => {
     return (
         <div className={`flex flex-col ${className}`}>
-            <h1 className="text-white text-4xl mb-6 font-medium inline-block">
+            <h1 className="sm:text-4xl sm:text-left text-2xl text-center mb-6 font-medium">
                 Weapon
             </h1>
             <div className="flex-grow"></div>
