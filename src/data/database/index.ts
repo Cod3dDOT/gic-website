@@ -20,7 +20,7 @@ export const getCharacters = () => {
         if (customElementsMap[character.name]) {
             character.elements = customElementsMap[character.name];
         } else {
-            character.elements = [character.element];
+            character.elements = [character.element.toLowerCase()];
         }
 
         return character;
