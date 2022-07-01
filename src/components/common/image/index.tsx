@@ -25,6 +25,7 @@ export const Image: React.FC<ImageProps> = ({
     const [imgSrc, setImgSrc] = useState(src);
 
     useEffect(() => {
+        setLoaded(false);
         setImgSrc(src);
     }, [src]);
 

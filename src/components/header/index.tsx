@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
                     <RiHome5Fill />
                 </Button>
                 <span className="flex-grow"></span>
-                <Button>News</Button>
+                <Button className="p-2 px-4 text-lg font-medium">News</Button>
             </div>
         </ScrollReveal>
     );

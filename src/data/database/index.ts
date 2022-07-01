@@ -1,9 +1,13 @@
 import GenshinDb, { Character as GenshinDbCharacter } from "./genshin-db";
+import GenshinDbOLoader from "./genshin-db";
+
 import { Map } from "@data/utilities";
 
 export type Character = { elements: string[] } & GenshinDbCharacter;
 
 export const getCharacters = () => {
+    // fetchData();
+
     const customElementsMap: Map<string[]> = {
         Aether: ["anemo", "electro", "geo"],
         Lumine: ["anemo", "electro", "geo"],
@@ -14,7 +18,9 @@ export const getCharacters = () => {
         verboseCategories: true,
     });
 
-    return characters.map((old) => {
+    if (characters === undefined) return [];
+
+    return characters.map((old: GenshinDbCharacter) => {
         let character: Character = { ...old, elements: [] };
 
         if (customElementsMap[character.name]) {
@@ -26,3 +32,14 @@ export const getCharacters = () => {
         return character;
     });
 };
+
+// export const fetchData = async () => {
+//     const response = await fetch("/api/data");
+//     const json = JSON.parse(await response.json());
+
+//     GenshinDb.addData(json);
+//     let searchResult = GenshinDb.characters("names", {
+//         matchCategories: true,
+//     });
+//     console.log(searchResult);
+// };

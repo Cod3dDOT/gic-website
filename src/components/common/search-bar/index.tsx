@@ -43,7 +43,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 <RiSearch2Line className="mx-2" />
                 <input
                     placeholder={placeholder}
-                    className="w-full px-2 rounded-lg appearance-none outline-none shadow-lg bg-dark-primary"
+                    className="w-full p-2 rounded-lg appearance-none outline-none shadow-lg bg-dark-primary"
                     onChange={(event) => {
                         setQuery(event.target.value.toLowerCase());
                     }}
