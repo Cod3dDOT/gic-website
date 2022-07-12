@@ -1,4 +1,4 @@
-import { NEXT_URL } from "@data";
+import { NEXT_URL } from "@utilities";
 
 export interface News {
     header: string;

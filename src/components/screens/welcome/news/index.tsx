@@ -34,10 +34,13 @@ export const WelcomeNews: React.FC = () => {
         } else {
             return;
         }
-        if (!scrollRef.current)
+
+        if (scrollRefVar) {
             scrollRefVar.addEventListener("scroll", scrollListener, {
                 passive: true,
             });
+        }
+
         return () => {
             if (!scrollRefVar) return;
             scrollRefVar.removeEventListener("scroll", scrollListener);
@@ -48,12 +51,15 @@ export const WelcomeNews: React.FC = () => {
         <div
             className="xl:h-[60vh] xl:w-[35vw]
                         lg:h-[26rem] lg:w-[24rem]
-                        md:h-[24rem] md:w-[20rem] md:block
-                        hidden
-                        p-4 rounded-lg"
+                        md:h-[24rem] md:w-[20rem]
+                        relative md:flex flex-col hidden
+                        rounded-lg"
         >
             <p className="text-2xl mb-2">Latest News</p>
-            <div className="w-full h-full gap-2 overflow-auto" ref={scrollRef}>
+            <div
+                className="w-full flex-grow gap-2 overflow-auto"
+                ref={scrollRef}
+            >
                 {news.map((post, index) => {
                     return (
                         <PieceOfNews news={post} key={`news-post-${index}`} />
@@ -68,8 +74,10 @@ export const WelcomeNews: React.FC = () => {
             </div>
             <Button
                 theme="normal"
-                className={`absolute right-4 bottom-4 p-2 transition-opacity duration-250 opacity-0 ${
-                    scrollToTopVisible ? "visible opacity-100" : "invisible"
+                className={`absolute right-4 bottom-4 p-2 transition-opacity duration-250 opacity-0 [animation-duration:200ms] ${
+                    scrollToTopVisible
+                        ? "animate-fade-in-visible"
+                        : "animate-fade-out-invisible"
                 }`}
                 onClick={() => {
                     scrollToTop();

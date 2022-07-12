@@ -47,9 +47,7 @@ const Home: React.FC<HomeProps> = ({ config, loadedConfig }) => {
 
             <WelcomeScreen version={loadedConfig ? config.publicVersion : ""} />
 
-            {loadedConfig ? (
-                config.underConstruction
-            ) : true ? (
+            {(loadedConfig ? config.underConstruction : true) ? (
                 <ComingSoonScreen />
             ) : (
                 <CalculatorScreen

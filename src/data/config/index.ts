@@ -1,4 +1,4 @@
-import { NEXT_URL } from "@data";
+import { NEXT_URL } from "@utilities";
 
 export const getConfig = async () => {
     const request = await fetch(NEXT_URL + "/api/config");
