@@ -58,8 +58,7 @@ export const Button: React.FC<ButtonProps> = ({
 
     return (
         <button
-            className={`leading-none p-4 text-md transition-colors rounded-md
-            flex flex-col items-center justify-center ${className}`}
+            className={`leading-none text-md transition-colors rounded-md flex flex-col items-center justify-center ${className}`}
             {...rest}
         >
             {getChildren()}

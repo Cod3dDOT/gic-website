@@ -33,6 +33,12 @@ module.exports = {
             height: {
                 88: "22rem",
             },
+            animation: {
+                flicker: "flicker 3s linear reverse infinite",
+                loader: "",
+                "fade-in-visible": "fade-in-visible 0.2s forwards",
+                "fade-out-invisible": "fade-out-invisible 0.5s forwards",
+            },
         },
     },
     plugins: [require("@tailwindcss/typography")],

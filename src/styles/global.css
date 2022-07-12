@@ -5,17 +5,6 @@ body {
     font-family: "Poppins";
 
     background: #171717;
-    background-image: radial-gradient(#232323, #111 90%);
-}
-
-.screen-image-mask {
-    -webkit-mask-image: radial-gradient(at 70% 40%, #111 35%, transparent 70%);
-    mask-image: radial-gradient(at 70% 40%, #111 35%, transparent 70%);
-}
-
-.character-image-mask {
-    -webkit-mask-image: radial-gradient(at center, #111 40%, transparent 70%);
-    mask-image: radial-gradient(at center, #111 40%, transparent 70%);
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -41,4 +30,57 @@ input[type="range"]::-webkit-slider-thumb {
 
 input[type="range"]::-webkit-slider-thumb:hover {
     background-color: #737373;
+}
+
+.animate-loader {
+    -webkit-animation: loader-2-1 3s linear infinite;
+    animation: loader-2-1 3s linear infinite;
+}
+
+.animate-loader span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    clip-path: inset(50% 0 0 0);
+    -webkit-animation: loader-2-2 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    animation: loader-2-2 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+.animate-loader span::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    border: 3px solid transparent;
+    border-top: 3px solid #fff;
+    border-radius: 50%;
+    -webkit-animation: loader-2-3 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+    animation: loader-2-3 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+.animate-loader span::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
 }

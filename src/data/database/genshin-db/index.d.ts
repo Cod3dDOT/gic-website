@@ -1,12 +1,19 @@
 export interface QueryFunction<R> {
-    <Q extends string, O extends QueryOptions>(query: Q, opts?: O):
-        (O extends { dumpResult: true }
-        ?
-            DumpResult<R, O, Q>
+    <Q extends string, O extends QueryOptions>(query: Q, opts?: O): O extends {
+        dumpResult: true;
+    }
+        ? DumpResult<R, O, Q>
         :
-            (O extends { matchCategories: true } ? (O extends { verboseCategories: true } ? R[] : string[]) : never) | 
-            (Q extends "names" ? (O extends { matchCategories: true } ? never : R | undefined) : R | undefined)
-        )
+              | (O extends { matchCategories: true }
+                    ? O extends { verboseCategories: true }
+                        ? R[]
+                        : string[]
+                    : never)
+              | (Q extends "names"
+                    ? O extends { matchCategories: true }
+                        ? never
+                        : R | undefined
+                    : R | undefined);
 }
 
 export interface DumpResult<R, O extends QueryOptions, Q extends string> {
@@ -14,9 +21,21 @@ export interface DumpResult<R, O extends QueryOptions, Q extends string> {
     folder: Folder;
     match: string | undefined;
     options: QueryOptions;
-    filename: (O extends { matchCategories: true } ? string[] : undefined) | string | undefined;
-    result: (O extends { matchCategories: true } ? (O extends { verboseCategories: true } ? R[] : string[]) : never) | 
-            (Q extends "names" ? (O extends { matchCategories: true } ? never : R | undefined) : R | undefined);
+    filename:
+        | (O extends { matchCategories: true } ? string[] : undefined)
+        | string
+        | undefined;
+    result:
+        | (O extends { matchCategories: true }
+              ? O extends { verboseCategories: true }
+                  ? R[]
+                  : string[]
+              : never)
+        | (Q extends "names"
+              ? O extends { matchCategories: true }
+                  ? never
+                  : R | undefined
+              : R | undefined);
 }
 
 /* Logic
@@ -52,7 +71,7 @@ characters("foobar", { matchCategories: true, verboseCategories: true }); // Cha
 */
 
 export interface StatFunction {
-    (level: number, ascension?: number | '+' | '-'): StatResult;
+    (level: number, ascension?: number | "+" | "-"): StatResult;
 }
 
 export interface StatResult {
@@ -90,46 +109,46 @@ export interface QueryOptions {
 //#region Enum
 
 export enum Languages {
-    ChineseSimplified  = "ChineseSimplified",
+    ChineseSimplified = "ChineseSimplified",
     ChineseTraditional = "ChineseTraditional",
-    English            = "English",
-    French             = "French",
-    German             = "German",
-    Indonesian         = "Indonesian",
-    Japanese           = "Japanese",
-    Korean             = "Korean",
-    Portuguese         = "Portuguese",
-    Russian            = "Russian",
-    Spanish            = "Spanish",
-    Thai               = "Thai",
-    Vietnamese         = "Vietnamese"
+    English = "English",
+    French = "French",
+    German = "German",
+    Indonesian = "Indonesian",
+    Japanese = "Japanese",
+    Korean = "Korean",
+    Portuguese = "Portuguese",
+    Russian = "Russian",
+    Spanish = "Spanish",
+    Thai = "Thai",
+    Vietnamese = "Vietnamese",
 }
 
 // genshindb.folder
 export enum Folder {
-    characters     = "characters",
-    talents        = "talents",
+    characters = "characters",
+    talents = "talents",
     constellations = "constellations",
-    
-    weapons        = "weapons",
 
-    foods          = "foods",
-    materials      = "materials",
+    weapons = "weapons",
+
+    foods = "foods",
+    materials = "materials",
     weaponmaterialtypes = "weaponmaterialtypes",
     talentmaterialtypes = "talentmaterialtypes",
 
-    artifacts      = "artifacts",
-    domains        = "domains",
-    enemies        = "enemies",
+    artifacts = "artifacts",
+    domains = "domains",
+    enemies = "enemies",
 
-    rarity         = "rarity",
-    elements       = "elements"
+    rarity = "rarity",
+    elements = "elements",
 }
 
 //#endregion
 
 // not easy to figure this out
-//export const setOptions: (options: QueryOptions): void 
+//export const setOptions: (options: QueryOptions): void
 //export const getOptions: ():
 
 export const artifacts: QueryFunction<Artifact>;
@@ -257,12 +276,12 @@ export interface Character {
         korean: string;
     };
     costs: {
-        "ascend1": Items[];
-        "ascend2": Items[];
-        "ascend3": Items[];
-        "ascend4": Items[];
-        "ascend5": Items[];
-        "ascend6": Items[];
+        ascend1: Items[];
+        ascend2: Items[];
+        ascend3: Items[];
+        ascend4: Items[];
+        ascend5: Items[];
+        ascend6: Items[];
     };
     images: {
         nameicon: string;
@@ -270,9 +289,9 @@ export interface Character {
         namegachasplash?: string; // lumine/aether doesn't have this
         namegachaslice?: string; // lumine/aether doesn't have this
 
-        card?: string;     // wikia
+        card?: string; // wikia
         portrait?: string; // wikia
-        icon: string;     // hoyolab
+        icon: string; // hoyolab
         sideicon: string; // hoyolab
         cover1?: string; // official site
         cover2?: string; // official site
@@ -353,7 +372,7 @@ export interface Element {
     images: {
         base64: string;
         wikia: string;
-    }
+    };
 }
 
 export interface Rarity {
@@ -473,17 +492,18 @@ export interface Talent {
     passive3?: PassiveTalentDetail; // player character doesn't have a third talent
     passive4?: PassiveTalentDetail; // for kokomi
     costs: {
-        "lvl2": Items[];
-        "lvl3": Items[];
-        "lvl4": Items[];
-        "lvl5": Items[];
-        "lvl6": Items[];
-        "lvl7": Items[];
-        "lvl8": Items[];
-        "lvl9": Items[];
-        "lvl10": Items[];
-    }
-    images?: { // images for talents aren't available yet
+        lvl2: Items[];
+        lvl3: Items[];
+        lvl4: Items[];
+        lvl5: Items[];
+        lvl6: Items[];
+        lvl7: Items[];
+        lvl8: Items[];
+        lvl9: Items[];
+        lvl10: Items[];
+    };
+    images?: {
+        // images for talents aren't available yet
         combat1: string;
         combat2: string;
         combatsp?: string; // for mona/ayaka
@@ -521,7 +541,8 @@ export interface Items {
 
 //#region TalentMaterial
 //deprecated
-export interface TalentMaterial { // English only
+export interface TalentMaterial {
+    // English only
     name: string;
     "2starname": string;
     "3starname": string;
@@ -553,12 +574,12 @@ export interface Weapon {
     r5: string[];
     weaponmaterialtype: string; // English only
     costs: {
-        "ascend1": Items[];
-        "ascend2": Items[];
-        "ascend3": Items[];
-        "ascend4": Items[];
-        "ascend5"?: Items[]; // 1 and 2 star weapons only have 4 ascensions
-        "ascend6"?: Items[]; // 1 and 2 star weapons only have 4 ascensions
+        ascend1: Items[];
+        ascend2: Items[];
+        ascend3: Items[];
+        ascend4: Items[];
+        ascend5?: Items[]; // 1 and 2 star weapons only have 4 ascensions
+        ascend6?: Items[]; // 1 and 2 star weapons only have 4 ascensions
     };
     images: {
         nameicon: string;
@@ -579,7 +600,8 @@ export interface Weapon {
 
 //#region WeaponMaterial
 //deprecated
-export interface WeaponMaterial { // English only
+export interface WeaponMaterial {
+    // English only
     name: string;
     "2starname": string;
     "3starname": string;
@@ -646,7 +668,7 @@ export interface Domain {
 
     images: {
         namepic: string;
-    }
+    };
 }
 
 export interface Rewards {
@@ -665,14 +687,15 @@ export interface Enemy {
     specialname: string;
 
     type: string; // enum of "COMMON", "ELITE", "BOSS"
-    category: string; 
+    category: string;
     description: string;
 
-    investigation?: { // almost all but not every enemy has this.
+    investigation?: {
+        // almost all but not every enemy has this.
         name: string;
         category: string;
         description: string;
-    }
+    };
 
     // droplist: Rewards; TODO
     // particles: TODO
@@ -750,7 +773,7 @@ export interface WindGlider {
     sortorder: number;
     ishidden?: true;
     source: string[];
-    
+
     images: {
         nameicon: string;
         namegacha: string;
@@ -763,9 +786,9 @@ export interface Animal {
     name: string;
     description: string;
     category: string;
-    counttype : string;
+    counttype: string;
     sortorder: number;
-    
+
     images: {
         nameicon: string;
     };
@@ -789,7 +812,7 @@ export interface Namecard {
 export interface Geography {
     name: string;
     area: string;
-    description :string;
+    description: string;
     region: string;
     showonlyunlocked?: true;
     sortorder: number;
@@ -819,17 +842,35 @@ export interface Commission {
     city: string;
 }
 
-
 //#region Altnames
 
 // export interface ;
 
-export function addAltName(language: Languages, folder: Folder, altname: string, query: string): boolean;
-export function removeAltNames(language: Languages, folder: Folder, altname: string): boolean;
-export function setAltNameLimits(limit: { maxLength?: number, maxCount?: number }): void;
+export function addAltName(
+    language: Languages,
+    folder: Folder,
+    altname: string,
+    query: string
+): boolean;
+export function removeAltNames(
+    language: Languages,
+    folder: Folder,
+    altname: string
+): boolean;
+export function setAltNameLimits(limit: {
+    maxLength?: number;
+    maxCount?: number;
+}): void;
 
 //#endregion
 
 // not sure how to add default true to "overwrite" param
-export function addData(data: ArrayBuffer | any, overwrite? : boolean): void;
-export function searchFolder(folder: string, query: string, opts?: QueryOptions): any
+export function addData(
+    data: ArrayBuffer | any,
+    overwrite?: boolean = true
+): void;
+export function searchFolder(
+    folder: string,
+    query: string,
+    opts?: QueryOptions
+): any;

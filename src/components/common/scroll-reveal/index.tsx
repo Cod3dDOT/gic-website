@@ -1,8 +1,9 @@
 import { useInView } from "react-intersection-observer";
 
 export interface ScrollRevealProps {
-    hidden?: string;
-    visible?: string;
+    onStartHidden?: string;
+    onStartVisible?: string;
+
     delay?: number;
     duration?: number;
     className?: string;
@@ -13,8 +14,8 @@ export interface ScrollRevealProps {
 }
 
 export const ScrollReveal: React.FC<ScrollRevealProps> = ({
-    hidden = "opacity-0",
-    visible = "",
+    onStartHidden: hidden = "opacity-0",
+    onStartVisible: visible = "",
     delay = 0,
     duration = 1000,
 
@@ -30,12 +31,14 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
         return inView;
     };
 
+    const getClasses = () => {
+        return shouldReveal() ? visible : hidden;
+    };
+
     return (
         <div
             ref={ref}
-            className={`transition-all ${
-                shouldReveal() ? visible : hidden
-            } ${className}`}
+            className={`transition-all ${getClasses()} ${className}`}
             style={{ transitionDuration: `${duration}ms` }}
         >
             {children}

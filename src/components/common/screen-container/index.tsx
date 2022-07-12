@@ -8,7 +8,7 @@ export interface ScreenContainerProps {
 export const ScreenContainer = forwardRef<HTMLDivElement, ScreenContainerProps>(
     function ScreenContainer({ children, className = "" }, myRef) {
         return (
-            <div className={`h-screen ${className}`} ref={myRef}>
+            <div className={`min-h-screen ${className}`} ref={myRef}>
                 {children}
             </div>
         );

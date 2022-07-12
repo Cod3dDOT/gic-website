@@ -24,15 +24,11 @@
             "@styles": ["src/styles"],
             "@data": ["src/data"],
             "@data/*": ["src/data/*"],
+            "@utilities": ["src/utilities"],
+            "@utilities/*": ["src/utilities/*"],
             "@i18n": ["./i18n.json"]
         }
     },
-    "include": [
-        "next-env.d.ts",
-        "additional.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        "src/components/header/index.js"
-    ],
+    "include": ["next-env.d.ts", "additional.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
 }

@@ -1,11 +1,15 @@
-export { Tooltip } from "./tooltip";
 export { Button } from "./button";
 export { Slider } from "./slider";
+export { Search } from "./search";
 export { ScreenContainer } from "./screen-container";
-export { SearchBar, SearchBarEntry } from "./search-bar";
+
 export { Image } from "./image";
-export { RarityIcon } from "./rarity-icon";
-export { ElementIcon } from "./element-icon";
-export { Select, EntryFromArray } from "./select";
+export type { ImageProps } from "./image";
+
+export { ElementIcons } from "./elements";
+export { WeaponTypeIcons } from "./weapon-types";
+
+export { Rarity, RarityStar } from "./rarity";
+export type { RarityProps } from "./rarity";
 
 export { ScrollReveal } from "./scroll-reveal";
