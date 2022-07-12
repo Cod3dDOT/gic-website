@@ -21,7 +21,12 @@ export const WelcomeLogo: React.FC<WelcomeLogoProps> = ({ version }) => {
                             md:relative
                             absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             >
-                <Image src={PaimonPortrait} layout="responsive" priority />
+                <Image
+                    src={PaimonPortrait}
+                    layout="responsive"
+                    sizes="60vh"
+                    priority
+                />
                 <div
                     className="absolute top-0 right-0 h-full
                                 md:w-24 md:bg-gradient-to-l md:from-dark-primary-dark md:bg-transparent

@@ -78,7 +78,8 @@ export const Header: React.FC<HeaderProps> = ({
                     <Image
                         src={PaimonLogo}
                         className="w-auto aspect-square"
-                    ></Image>
+                        sizes="128px"
+                    />
                     <div>
                         <h4 className="sm:text-base text-sm">Genshin Impact</h4>
                         <h3 className="leading-none text-xl font-medium">
