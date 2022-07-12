@@ -8,8 +8,8 @@ export interface Config {
 }
 
 const config: Config = {
-    publicVersion: "0.0.1",
-    devVersion: "0.0.2",
+    publicVersion: "0.1.0-dev.1",
+    devVersion: "0.1.0-dev.1",
     underConstruction: true,
     underMaintainance: false,
 };

@@ -6,7 +6,7 @@ import { RiArrowUpSLine } from "react-icons/ri";
 import { PieceOfNews } from "./piece-of-news";
 
 export const WelcomeNews: React.FC = () => {
-    const [news, setNews] = useState<Array<NewsInfo>>([]);
+    const [news, setNews] = useState<Array<NewsInfo>>();
     const [scrollToTopVisible, setScrollToTopVisible] = useState<boolean>(true);
     const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -57,14 +57,25 @@ export const WelcomeNews: React.FC = () => {
         >
             <p className="text-2xl mb-2">Latest News</p>
             <div
-                className="w-full flex-grow gap-2 overflow-auto"
+                className="w-full flex-grow space-y-2 overflow-auto"
                 ref={scrollRef}
             >
-                {news.map((post, index) => {
-                    return (
-                        <PieceOfNews news={post} key={`news-post-${index}`} />
-                    );
-                })}
+                {news
+                    ? news.map((post, index) => {
+                          return (
+                              <PieceOfNews
+                                  news={post}
+                                  key={`news-post-${index}`}
+                              />
+                          );
+                      })
+                    : Array.from({ length: 5 }).map((val, index) => {
+                          return (
+                              <PieceOfNews
+                                  key={`news-post-skeleton-${index}`}
+                              />
+                          );
+                      })}
                 <div className="mt-4">
                     <div className="bg-dark-primary-lighter h-1" />
                     <p className=" my-2 text-bse text-dark-primary-lighter">
