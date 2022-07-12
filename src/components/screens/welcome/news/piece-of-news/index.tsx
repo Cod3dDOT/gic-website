@@ -35,7 +35,7 @@ export const PieceOfNews: React.FC<PieceOfNewsProps> = ({ news }) => {
                 {news ? (
                     <div>{news.header}</div>
                 ) : (
-                    <div className="animate-pulse rounded-sm w-1/2 bg-dark-primary-light">
+                    <div className="animate-pulse rounded-sm w-1/2 bg-dark-primary">
                         <br />
                     </div>
                 )}
@@ -62,7 +62,7 @@ export const PieceOfNews: React.FC<PieceOfNewsProps> = ({ news }) => {
                     {news.body}
                 </p>
             ) : (
-                <div className="text-sm animate-pulse leading-none mt-1 rounded-sm w-full bg-dark-primary-light h-24"></div>
+                <div className="text-sm animate-pulse leading-none mt-1 rounded-sm w-full bg-dark-primary h-24"></div>
             )}
 
             <div

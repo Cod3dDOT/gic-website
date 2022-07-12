@@ -1,4 +1,4 @@
-import { NEXT_URL } from "@utilities";
+import { getNextUrl } from "@utilities";
 
 export interface News {
     header: string;
@@ -7,7 +7,7 @@ export interface News {
 }
 
 export const fetchNews = async () => {
-    const request = await fetch(NEXT_URL + "/api/news");
+    const request = await fetch(getNextUrl() + "/api/news");
     if (request.ok) {
         return request.json();
     }

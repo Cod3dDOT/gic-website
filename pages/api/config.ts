@@ -1,10 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
+export interface CommitInfo {
+    date: string;
+    status: string;
+}
+
 export interface Config {
     publicVersion: string;
     devVersion: string;
     underConstruction: boolean;
     underMaintainance: boolean;
+
+    lastCommit?: CommitInfo;
 }
 
 const config: Config = {
