@@ -17,7 +17,6 @@ export const Image: React.FC<ImageProps> = ({
     alt = "",
     objectFit = "contain",
     layout = "fill",
-    loading = "lazy",
 
     ...rest
 }) => {
@@ -56,7 +55,6 @@ export const Image: React.FC<ImageProps> = ({
                 alt={alt}
                 layout={layout}
                 objectFit={objectFit}
-                loading={loading}
                 sizes={sizes}
                 {...rest}
             />

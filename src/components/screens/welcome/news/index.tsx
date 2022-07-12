@@ -7,7 +7,8 @@ import { PieceOfNews } from "./piece-of-news";
 
 export const WelcomeNews: React.FC = () => {
     const [news, setNews] = useState<Array<NewsInfo>>();
-    const [scrollToTopVisible, setScrollToTopVisible] = useState<boolean>(true);
+    const [scrollToTopVisible, setScrollToTopVisible] =
+        useState<boolean>(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const scrollListener = () => {
