@@ -3,11 +3,7 @@ import React from "react";
 import { useState } from "react";
 
 import { Header, Footer } from "@components";
-import {
-    WelcomeScreen,
-    CalculatorScreen,
-    ComingSoonScreen,
-} from "@components/screens";
+import { WelcomeScreen, CalculatorScreen } from "@components/screens";
 
 import { getConfig } from "@data/config";
 import { Config } from "./api/config";
@@ -43,9 +39,7 @@ const Home: React.FC<HomeProps> = ({ config }) => {
 
                     <WelcomeScreen />
 
-                    {config.underConstruction ? (
-                        <ComingSoonScreen />
-                    ) : (
+                    {!config.underConstruction && (
                         <CalculatorScreen settingsVisible={settingsOpened} />
                     )}
 

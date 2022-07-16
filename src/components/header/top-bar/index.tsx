@@ -44,7 +44,7 @@ const HeaderTopBar: React.FC<HeaderTopBarProps> = ({
                 <MImage
                     src={PaimonLogo}
                     className={`w-auto aspect-square transition-[height] md:h-full ${
-                        shouldReveal ? "" : "h-0"
+                        scrolledMore ? "" : "h-0"
                     }`}
                     sizes="128px"
                     priority
