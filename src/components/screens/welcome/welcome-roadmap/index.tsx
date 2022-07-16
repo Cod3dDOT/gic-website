@@ -33,6 +33,7 @@ export const WelocomeRoadmap: React.FC<WelocomeRoadmapProps> = ({}) => {
                             <RoadmapStepComponent
                                 step={step}
                                 onHovered={() => {}}
+                                key={`roadmap-step-${step.title}`}
                             />,
                         ];
                     })}
