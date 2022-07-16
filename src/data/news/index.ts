@@ -7,7 +7,7 @@ export interface News {
 }
 
 export const fetchNews = async () => {
-    const request = await fetch(getNextUrl() + "api/news");
+    const request = await fetch(getNextUrl("/api/news"));
     if (request.ok) {
         return request.json();
     }

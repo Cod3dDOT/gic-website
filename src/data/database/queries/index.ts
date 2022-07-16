@@ -16,7 +16,7 @@ export const fetchData = async () => {
     _dbState = DBState.FETCHING;
     await fetchDatabaseLoader();
 
-    const response = await fetch(getNextUrl() + "api/db/data");
+    const response = await fetch(getNextUrl("/api/db/data"));
     const buffer = await response.arrayBuffer();
     GenshinDB().addData(buffer, true);
     _dbState = DBState.READY;
