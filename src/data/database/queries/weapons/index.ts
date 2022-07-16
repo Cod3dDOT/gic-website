@@ -1,9 +1,9 @@
-import GenshinDb, { Weapon as GDbWeapon } from "@data/database/genshin-db";
+import { GenshinDB, Weapon as GDbWeapon } from "@data/database/genshin-db";
 import { toWeapon } from "@data/database/data-classes";
 import { DatabaseError } from "@data/database/error";
 
 export const getWeapons = () => {
-    let weapons = GenshinDb.weapons("names", {
+    let weapons = GenshinDB().weapons("names", {
         matchCategories: true,
         verboseCategories: true,
     });

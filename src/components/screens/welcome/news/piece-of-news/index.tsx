@@ -1,6 +1,6 @@
 import { Button } from "@components/common";
 import { News } from "@data/news";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 
 export interface PieceOfNewsProps {
@@ -40,7 +40,7 @@ export const PieceOfNews: React.FC<PieceOfNewsProps> = ({ news }) => {
                     </div>
                 )}
                 {isOverflowing ? (
-                    <Button theme="none" onClick={onOpenButtonClick}>
+                    <Button onClick={onOpenButtonClick}>
                         <RiArrowDownSLine
                             className={`transition-transform ${
                                 isOpen ? "rotate-180" : ""
@@ -75,3 +75,4 @@ export const PieceOfNews: React.FC<PieceOfNewsProps> = ({ news }) => {
         </div>
     );
 };
+export const MPieceOfNews = memo(PieceOfNews);

@@ -39,10 +39,7 @@ export const Search: React.FC<SearchProps> = ({
                 className="flex w-full bg-dark-primary-light rounded-md items-center group
                             h-12"
             >
-                <Button
-                    theme="none"
-                    className="aspect-square text-xl h-full text-dark-primary-lighter transition-colors group-focus-within:text-white"
-                >
+                <Button className="aspect-square text-xl h-full text-dark-primary-lighter transition-colors group-focus-within:text-white">
                     <RiSearch2Line />
                 </Button>
                 <input

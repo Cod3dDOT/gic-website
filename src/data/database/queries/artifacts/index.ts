@@ -1,9 +1,9 @@
-import GenshinDb, { Artifact as GDbArtifact } from "@data/database/genshin-db";
+import { Artifact as GDbArtifact, GenshinDB } from "@data/database/genshin-db";
 import { toArtifact } from "@data/database/data-classes";
 import { DatabaseError } from "@data/database";
 
-export const getArtifacts = () => {
-    let characters = GenshinDb.artifacts("names", {
+export const getArtifacts = async () => {
+    let characters = GenshinDB().artifacts("names", {
         matchCategories: true,
         verboseCategories: true,
     });

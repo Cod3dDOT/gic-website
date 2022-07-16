@@ -1,9 +1,9 @@
 import { Button } from "@components/common";
 import { fetchNews, News as NewsInfo } from "@data/news";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { RiArrowUpSLine } from "react-icons/ri";
 
-import { PieceOfNews } from "./piece-of-news";
+import { MPieceOfNews } from "./piece-of-news";
 
 export const WelcomeNews: React.FC = () => {
     const [news, setNews] = useState<Array<NewsInfo>>();
@@ -22,6 +22,8 @@ export const WelcomeNews: React.FC = () => {
     };
 
     useEffect(() => {
+        if (Array.isArray(news)) return;
+        console.log(news);
         const newsPromise = fetchNews();
         newsPromise.then((_news) => {
             setNews(_news);
@@ -64,7 +66,7 @@ export const WelcomeNews: React.FC = () => {
                 {news
                     ? news.map((post, index) => {
                           return (
-                              <PieceOfNews
+                              <MPieceOfNews
                                   news={post}
                                   key={`news-post-${index}`}
                               />
@@ -72,7 +74,7 @@ export const WelcomeNews: React.FC = () => {
                       })
                     : Array.from({ length: 5 }).map((val, index) => {
                           return (
-                              <PieceOfNews
+                              <MPieceOfNews
                                   key={`news-post-skeleton-${index}`}
                               />
                           );
@@ -85,8 +87,7 @@ export const WelcomeNews: React.FC = () => {
                 </div>
             </div>
             <Button
-                theme="normal"
-                className={`absolute right-4 bottom-4 p-2 transition-opacity duration-250 opacity-0 [animation-duration:200ms] ${
+                className={`absolute right-4 bottom-4 bg-dark-primary rounded-sm p-2 transition-opacity duration-250 opacity-0 [animation-duration:200ms] ${
                     scrollToTopVisible
                         ? "animate-fade-in-visible"
                         : "animate-fade-out-invisible"
@@ -100,3 +101,4 @@ export const WelcomeNews: React.FC = () => {
         </div>
     );
 };
+export const MWelcomeNews = memo(WelcomeNews);

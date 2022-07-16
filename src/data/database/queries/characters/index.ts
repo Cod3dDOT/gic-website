@@ -1,11 +1,12 @@
-import GenshinDb, {
+import {
+    GenshinDB,
     Character as GDbCharacter,
 } from "@data/database/genshin-db";
 import { toCharacter } from "@data/database/data-classes";
 import { DatabaseError } from "@data/database";
 
 export const getCharacters = () => {
-    let characters = GenshinDb.characters("names", {
+    let characters = GenshinDB().characters("names", {
         matchCategories: true,
         verboseCategories: true,
     });

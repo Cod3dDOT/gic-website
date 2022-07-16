@@ -8,11 +8,11 @@ import {
     CalculatorScreen,
     ComingSoonScreen,
 } from "@components/screens";
-import { Tabs } from "@components/screens/calculator/tabs";
 
 import { getConfig } from "@data/config";
 import { Config } from "./api/config";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
+import { SelectedTabProvider, ConfigProvider } from "@utilities/contexts";
 
 export interface HomeProps {
     config: Config;
@@ -23,13 +23,12 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
 
     return {
         props: {
-            config: config || null,
+            config: config,
         },
     };
 };
 
 const Home: React.FC<HomeProps> = ({ config }) => {
-    const [currentTab, setCurrentTab] = useState<Tabs>(Tabs.Character);
     const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
 
     const toggleSettings = () => {
@@ -38,24 +37,21 @@ const Home: React.FC<HomeProps> = ({ config }) => {
 
     return (
         <React.StrictMode>
-            <Header
-                underConstruction={config ? config.underConstruction : true}
-                onTabChanged={setCurrentTab}
-                onSettingsToggle={toggleSettings}
-            />
+            <ConfigProvider config={config}>
+                <SelectedTabProvider>
+                    <Header onSettingsToggle={toggleSettings} />
 
-            <WelcomeScreen version={config ? config.publicVersion : ""} />
+                    <WelcomeScreen />
 
-            {(config ? config.underConstruction : true) ? (
-                <ComingSoonScreen lastCommit={config && config.lastCommit} />
-            ) : (
-                <CalculatorScreen
-                    currentTab={currentTab}
-                    settingsVisible={settingsOpened}
-                />
-            )}
+                    {config.underConstruction ? (
+                        <ComingSoonScreen />
+                    ) : (
+                        <CalculatorScreen settingsVisible={settingsOpened} />
+                    )}
 
-            <Footer />
+                    <Footer />
+                </SelectedTabProvider>
+            </ConfigProvider>
         </React.StrictMode>
     );
 };

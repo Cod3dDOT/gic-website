@@ -28,7 +28,6 @@ export const SearchRarityFilter: React.FC<SearchRarityFilterProps> = ({
                     return (
                         <Button
                             key={`rarity_star_${index}`}
-                            theme="none"
                             onClick={() => setSelectedRarity(index)}
                             className="p-[0.05rem]"
                         >

@@ -1,4 +1,4 @@
-import { Image } from "@components/common";
+import { MImage } from "@components/common";
 
 import logoImage from "@public/footer/logo.svg";
 

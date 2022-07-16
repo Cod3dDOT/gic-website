@@ -1,18 +1,26 @@
-import GenshinDb from "../genshin-db";
+import { getNextUrl } from "@utilities";
+import { fetchDatabaseLoader, GenshinDB } from "../genshin-db";
 
-let _fetchedData: boolean = false;
-export const fetchedData = () => {
-    return _fetchedData;
+export enum DBState {
+    NONE,
+    FETCHING,
+    READY,
+}
+
+let _dbState = DBState.NONE;
+export const getDBState = () => {
+    return _dbState;
 };
 
 export const fetchData = async () => {
-    const response = await fetch(
-        "https://gitcdn.link/cdn/theBowja/genshin-db/main/dist/data/gzips/english-all.min.json.gzip"
-    );
+    _dbState = DBState.FETCHING;
+    await fetchDatabaseLoader();
+
+    const response = await fetch(getNextUrl() + "api/db/data");
     const buffer = await response.arrayBuffer();
-    GenshinDb.addData(buffer, true);
-    _fetchedData = true;
-    return true;
+    GenshinDB().addData(buffer, true);
+    _dbState = DBState.READY;
+    return buffer;
 };
 
 export { getCharacters } from "./characters";

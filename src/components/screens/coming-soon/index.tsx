@@ -1,13 +1,10 @@
 import { ScreenContainer } from "@components/common";
-import { CommitInfo } from "pages/api/config";
+import { useConfig } from "@utilities/contexts";
 
-export interface ComingSoonScreenProps {
-    lastCommit?: CommitInfo;
-}
+export interface ComingSoonScreenProps {}
 
-export const ComingSoonScreen: React.FC<ComingSoonScreenProps> = ({
-    lastCommit,
-}) => {
+export const ComingSoonScreen: React.FC<ComingSoonScreenProps> = ({}) => {
+    const { state: config, dispatch } = useConfig();
     return (
         <ScreenContainer className="relative flex justify-around items-center h-screen">
             <div className="flex flex-col items-center">
@@ -20,12 +17,14 @@ export const ComingSoonScreen: React.FC<ComingSoonScreenProps> = ({
                     </span>
                     <span
                         className={`text-dark-primary p-4  whitespace-nowrap text-right font-medium ${
-                            lastCommit?.status === "success"
+                            config.lastCommit?.status === "success"
                                 ? "bg-green-600"
                                 : "bg-red-600"
                         }`}
                     >
-                        {lastCommit ? lastCommit.date : "a long time ago..."}
+                        {config.lastCommit
+                            ? config.lastCommit.date
+                            : "a long time ago..."}
                     </span>
                 </div>
             </div>

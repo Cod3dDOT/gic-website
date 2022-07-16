@@ -1,10 +1,11 @@
+import { FadeReveal } from "@components/common";
 import { useState, useEffect } from "react";
 
 export interface ErrorOverlayProps {
-    errored: boolean;
+    visible: boolean;
 }
 
-export const ErrorOverlay: React.FC<ErrorOverlayProps> = ({ errored }) => {
+export const ErrorOverlay: React.FC<ErrorOverlayProps> = ({ visible }) => {
     const [quote, setQuote] = useState<string>("");
     const [dev, setDev] = useState<string>("");
 
@@ -25,10 +26,11 @@ export const ErrorOverlay: React.FC<ErrorOverlayProps> = ({ errored }) => {
     };
 
     return (
-        <div
-            className={`absolute inset-0 bg-opacity-80 backdrop-blur-sm flex-col align-middle justify-center transition-opacity invisible hidden opacity-0 ${
-                errored && "flex z-40 animate-fade-in-visible"
+        <FadeReveal
+            className={`absolute inset-0 bg-opacity-80 backdrop-blur-sm flex flex-col align-middle justify-center transition-opacity invisible opacity-0 ${
+                visible && "z-40"
             }`}
+            revealed={visible}
         >
             <div className="m-auto w-min">
                 <p className="text-4xl text-center font-medium whitespace-nowrap">
@@ -41,6 +43,6 @@ export const ErrorOverlay: React.FC<ErrorOverlayProps> = ({ errored }) => {
                     <p className="text-right">- {dev}</p>
                 </div>
             </div>
-        </div>
+        </FadeReveal>
     );
 };

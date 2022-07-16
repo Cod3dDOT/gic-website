@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { default as NextImage, ImageProps as NextImageProps } from "next/image";
 
 export type ImageProps = {
@@ -8,7 +8,7 @@ export type ImageProps = {
 } & NextImageProps;
 
 export const Image: React.FC<ImageProps> = ({
-    fallback = "",
+    fallback,
     smoothLoad = true,
     className = "",
 
@@ -20,12 +20,7 @@ export const Image: React.FC<ImageProps> = ({
     ...rest
 }) => {
     const [loaded, setLoaded] = useState<boolean>(false);
-    const [imgSrc, setImgSrc] = useState(src);
-
-    useEffect(() => {
-        setLoaded(false);
-        setImgSrc(src);
-    }, [src]);
+    const [imgSrc, setImgSrc] = useState<typeof src>(src);
 
     const onLoad = (result: {
         naturalWidth: number;
@@ -33,8 +28,9 @@ export const Image: React.FC<ImageProps> = ({
     }) => {
         if (result.naturalWidth === 0 && fallback) {
             setImgSrc(fallback);
+        } else {
+            setLoaded(true);
         }
-        setLoaded(true);
     };
 
     const onError = () => {
@@ -42,15 +38,17 @@ export const Image: React.FC<ImageProps> = ({
         setLoaded(true);
     };
 
+    if (fallback) rest.onError = onError;
+    if (smoothLoad) rest.onLoadingComplete = onLoad;
+
     return (
         <div
-            className={`relative h-full w-full transition-opacity duration-300
-                        ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
+            className={`relative h-full w-full transition-opacity opacity-0 duration-300 ${
+                loaded && "opacity-100"
+            } ${className}`}
         >
-            <NextImage
+            <MNextImage
                 src={imgSrc}
-                onLoadingComplete={onLoad}
-                onError={onError}
                 alt={alt}
                 layout={layout}
                 objectFit={objectFit}
@@ -59,3 +57,7 @@ export const Image: React.FC<ImageProps> = ({
         </div>
     );
 };
+
+export const MNextImage = memo(NextImage);
+
+export const MImage = memo(Image);

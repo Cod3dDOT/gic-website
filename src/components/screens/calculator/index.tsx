@@ -1,61 +1,34 @@
 import { useEffect, useState } from "react";
-import { ScreenContainer, ScrollReveal } from "@components/common";
+import { ScreenContainer } from "@components/common";
+
+import { DBState, fetchData, getDBState } from "@data/database";
 
 import {
-    Artifact,
-    Character,
-    Enemy,
-    Weapon,
-    fetchData,
-    getArtifacts,
-    getCharacters,
-    getEnemies,
-    getWeapons,
-} from "@data/database";
-
-import {
-    CharacterTab,
-    WeaponTab,
-    EnemyTab,
-    ArtifactsTab,
-    StatsTab,
-    Tabs,
+    MWeaponTab,
+    MEnemyTab,
+    MArtifactsTab,
+    MStatsTab,
+    MCharacterTab,
 } from "./tabs";
+
 import { LoadingOverlay, ErrorOverlay, SettingsOverlay } from "./overlays";
+import { CalculatorDataProvider } from "@utilities/contexts/calculator-data";
 
 export interface CalculatorScreenProps {
-    currentTab: Tabs;
     settingsVisible: boolean;
 }
 
 export const CalculatorScreen: React.FC<CalculatorScreenProps> = ({
-    currentTab,
     settingsVisible,
 }) => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [errored, setErrored] = useState<boolean>(false);
 
-    const [characters, setCharacters] = useState<Array<Character>>([]);
-    const [weapons, setWeapons] = useState<Array<Weapon>>([]);
-    const [enemies, setEnemies] = useState<Array<Enemy>>([]);
-    const [artifacts, setArtifacts] = useState<Array<Artifact>>([]);
-
-    const isTabvisible = (tab: Tabs) => {
-        return tab === currentTab;
-    };
-
     useEffect(() => {
-        fetchData().then(() => {
-            try {
-                setLoaded(true);
-                setCharacters(getCharacters());
-                setWeapons(getWeapons());
-                setEnemies(getEnemies());
-                setArtifacts(getArtifacts());
-            } catch (err) {
-                setErrored(true);
-                console.log(err);
-            }
+        if (getDBState() !== DBState.NONE) return;
+
+        fetchData().then((data) => {
+            setLoaded(true);
         });
     }, []);
 
@@ -65,40 +38,24 @@ export const CalculatorScreen: React.FC<CalculatorScreenProps> = ({
                                     sm:p-8 sm:pt-0
                                     p-4 pt-0"
         >
-            <LoadingOverlay loaded={loaded} />
-            <ErrorOverlay errored={errored} />
+            <LoadingOverlay visible={!loaded} />
+            <ErrorOverlay visible={errored} />
 
             <div className="h-[4.5rem] my-4"></div>
             <div className="relative flex-grow flex">
-                <CharacterTab
-                    characters={characters}
-                    visible={isTabvisible(Tabs.Character)}
-                />
+                <CalculatorDataProvider>
+                    <MCharacterTab />
 
-                <WeaponTab
-                    weapons={weapons}
-                    visible={isTabvisible(Tabs.Weapon)}
-                />
+                    <MWeaponTab />
 
-                <EnemyTab
-                    enemies={enemies}
-                    visible={isTabvisible(Tabs.Enemy)}
-                />
+                    <MEnemyTab />
 
-                <ArtifactsTab
-                    artifacts={artifacts}
-                    visible={isTabvisible(Tabs.Artifacts)}
-                />
+                    <MArtifactsTab />
 
-                <StatsTab visible={isTabvisible(Tabs.Stats)} />
+                    <MStatsTab />
 
-                <ScrollReveal
-                    className="absolute bg-dark-primary inset-4 -z-10"
-                    revealed={settingsVisible}
-                    duration={250}
-                >
-                    <SettingsOverlay />
-                </ScrollReveal>
+                    <SettingsOverlay opened={settingsVisible} />
+                </CalculatorDataProvider>
             </div>
         </ScreenContainer>
     );

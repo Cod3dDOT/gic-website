@@ -1,12 +1,13 @@
-import { Image } from "@components/common";
+import { MImage } from "@components/common";
 
 import PaimonPortrait from "@public/welcome/paimon-portrait.webp";
+import { useConfig } from "@utilities/contexts";
 
-export interface WelcomeLogoProps {
-    version: string;
-}
+export interface WelcomeLogoProps {}
 
-export const WelcomeLogo: React.FC<WelcomeLogoProps> = ({ version }) => {
+export const WelcomeLogo: React.FC<WelcomeLogoProps> = () => {
+    const { state: config, dispatch } = useConfig();
+
     return (
         <div
             className="relative flex items-center
@@ -21,7 +22,7 @@ export const WelcomeLogo: React.FC<WelcomeLogoProps> = ({ version }) => {
                             md:relative
                             absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             >
-                <Image
+                <MImage
                     src={PaimonPortrait}
                     layout="responsive"
                     sizes="60vh"
@@ -44,7 +45,9 @@ export const WelcomeLogo: React.FC<WelcomeLogoProps> = ({ version }) => {
                 </h1>
                 <br />
 
-                <p className="inline-block text-sm float-right">v{version}</p>
+                <p className="inline-block text-sm float-right">
+                    v{config.publicVersion}
+                </p>
             </div>
         </div>
     );

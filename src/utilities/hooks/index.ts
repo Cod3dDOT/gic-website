@@ -1,2 +1,2 @@
 export { useIsMobile } from "./useIsMobile";
-export { useScrollAmount } from "./useScrollAmount";
+export { useScrollAmount, useScrolledMoreThan } from "./useScrollAmount";

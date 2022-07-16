@@ -40,12 +40,12 @@ export const SearchWeaponTypesFilter: React.FC<
                     return (
                         <Button
                             key={`element_${wpType}`}
-                            theme="none"
+                            
                             onClick={() => toggleSelectedElement(wpType)}
                             className="h-full aspect-square mx-0 sm:mx-1"
                         >
                             {WeaponTypeIcons[wpType]({
-                                className: `h-full w-full transition-opacity brightness-200
+                                className: `h-full w-full transition-opacity duration-150 brightness-200
                             ${
                                 selectedElements.includes(wpType)
                                     ? "opacity-100"

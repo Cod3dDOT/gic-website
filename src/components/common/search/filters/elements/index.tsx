@@ -38,7 +38,6 @@ export const SearchElementsFilter: React.FC<SearchElementsFilterProps> = ({
                     return (
                         <Button
                             key={`element_${el}`}
-                            theme="none"
                             onClick={() => toggleSelectedElement(el)}
                             className="h-full p-1 px-1 sm:px-2"
                         >

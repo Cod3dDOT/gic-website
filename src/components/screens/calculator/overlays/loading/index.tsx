@@ -1,13 +1,16 @@
+import { FadeReveal } from "@components/common";
+
 export interface LoadingOverlayProps {
-    loaded: boolean;
+    visible: boolean;
 }
 
-export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ loaded }) => {
+export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ visible }) => {
     return (
-        <div
-            className={`absolute inset-0 bg-opacity-80 backdrop-blur-sm flex flex-col align-middle justify-center ${
-                loaded && " animate-fade-out-invisible"
+        <FadeReveal
+            className={`absolute inset-0 bg-dark-primary-dark bg-opacity-60 backdrop-blur-sm flex flex-col align-middle justify-center ${
+                visible && "z-40"
             }`}
+            revealed={visible}
         >
             <div className="mx-auto p-8 rounded-md flex flex-col items-center">
                 <div className="w-36 h-36 animate-loader">
@@ -17,6 +20,6 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ loaded }) => {
                     Loading
                 </p>
             </div>
-        </div>
+        </FadeReveal>
     );
 };

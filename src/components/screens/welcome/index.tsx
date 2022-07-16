@@ -1,16 +1,14 @@
-import { ScreenContainer, ScrollReveal } from "@components/common";
+import { ScreenContainer } from "@components/common";
 import { WelcomeLogo } from "./logo";
-import { WelcomeNews } from "./news";
+import { MWelcomeNews } from "./news";
 
-export interface WelcomeScreenProps {
-    version: string;
-}
+export interface WelcomeScreenProps {}
 
-export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ version }) => {
+export const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
     return (
         <ScreenContainer className="relative flex justify-around items-center h-screen">
-            <WelcomeLogo version={version} />
-            <WelcomeNews />
+            <WelcomeLogo />
+            <MWelcomeNews />
         </ScreenContainer>
     );
 };

@@ -1,34 +1,36 @@
 import { Search } from "@components/common";
+import { DBState, getCharacters, getDBState } from "@data/database";
 import { Character } from "@data/database/data-classes";
-import { useState } from "react";
-import { TabWrapperProps } from "../layout";
-import { TabWrapper } from "../layout";
+import React from "react";
+import { useEffect, useState } from "react";
+import { Tabs } from "..";
+import { MTabWrapper } from "../wrapper";
 
-export type CharacterTabProps = {
-    characters: Array<Character>;
-} & TabWrapperProps;
+export type CharacterTabProps = {};
 
-export const CharacterTab: React.FC<CharacterTabProps> = ({
-    characters,
-    visible,
-}) => {
-    const [openedCharacterSettings, setOpenedCharacterSettings] =
-        useState<boolean>(false);
+export const CharacterTab: React.FC<CharacterTabProps> = () => {
+    const [characters, setCharacters] = useState<Array<Character>>([]);
     const [chosenCharacter, setChosenCharacter] = useState<Character>();
 
+    const [openedSettings, setOpenedSettings] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (getDBState() !== DBState.READY) return;
+        setCharacters(getCharacters());
+    }, [getDBState() === DBState.READY]);
+
     return (
-        <TabWrapper
-            visible={visible}
-            className={openedCharacterSettings ? "gap-0" : "gap-8"}
-        >
+        <MTabWrapper tab={Tabs.Character}>
             <div className="w-full h-full">
                 <Search all={characters} />
             </div>
             <div
                 className={`h-full w-full max-w-full transition-all bg-dark-primary-lighter ${
-                    openedCharacterSettings ? "max-w-full" : "max-w-0"
+                    openedSettings ? "max-w-full" : "max-w-0"
                 }`}
             ></div>
-        </TabWrapper>
+        </MTabWrapper>
     );
 };
+
+export const MCharacterTab = React.memo(CharacterTab);
