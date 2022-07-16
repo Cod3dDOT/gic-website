@@ -37,9 +37,9 @@ export const Header: React.FC<HeaderProps> = ({ onSettingsToggle }) => {
                 onSideBarOpen={() => setSideBarOpened(!sideBarOpened)}
             />
             <div
-                className={`fixed -translate-x-full ${
-                    sideBarOpened ? "translate-x-0" : ""
-                }`}
+                className={`fixed z-40 transition-transform
+                            h-full w-full -translate-x-full
+                            ${sideBarOpened ? "translate-x-0" : ""}`}
             >
                 <MHeaderSideBar onSettingsToggle={onSettingsToggle} />
             </div>

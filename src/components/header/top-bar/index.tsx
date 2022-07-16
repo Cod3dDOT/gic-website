@@ -40,13 +40,16 @@ const HeaderTopBar: React.FC<HeaderTopBarProps> = ({
                     transition-colors
                     rounded-lg border-2 border-transparent mt-4 ${getStyles()}`}
         >
-            <div className="z-50 h-full flex flex-1 gap-2 items-center">
+            <div className="z-50 flex flex-1 gap-2 items-center">
                 <MImage
                     src={PaimonLogo}
-                    className="w-auto aspect-square"
+                    className={`w-auto aspect-square transition-[height] md:h-full ${
+                        shouldReveal ? "" : "h-0"
+                    }`}
                     sizes="128px"
                     priority
                 />
+
                 <div>
                     <h4 className="sm:text-base text-sm">Genshin Impact</h4>
                     <h3 className="leading-none text-xl font-medium">
