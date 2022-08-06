@@ -1,14 +1,15 @@
-import { MImage } from "@components/common";
-import ClaymoreIcon from "@public/icons/weapon-types/icon-claymore.webp";
-import { WeaponTypeIconsProps } from "..";
+import { MImage } from '@components/common';
+import ClaymoreIcon from '@public/icons/weapon-types/icon-claymore.webp';
 
-export const Claymore: React.FC<WeaponTypeIconsProps> = ({ ...rest }) => {
-    return (
-        <MImage
-            {...rest}
-            src={ClaymoreIcon}
-            alt="icon-claymore"
-            sizes="256px"
-        />
-    );
+import { IWeaponTypeIconProps } from '..';
+
+export const Claymore: React.FC<IWeaponTypeIconProps> = ({ ...rest }) => {
+	return (
+		<MImage
+			{...rest}
+			src={ClaymoreIcon}
+			alt="icon-claymore"
+			sizes="256px"
+		/>
+	);
 };

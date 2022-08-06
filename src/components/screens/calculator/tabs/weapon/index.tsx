@@ -1,29 +1,29 @@
-import { DBState, getDBState, getWeapons, Weapon } from "@data/database";
-import { useSelectedTab } from "@utilities/contexts";
-import React from "react";
-import { useEffect, useState } from "react";
-import { Tabs } from "..";
-import { TabWrapperProps, TabWrapper } from "../wrapper";
+import { useSelectedTab } from '@contexts';
+import { DBState, getDBState, getWeapons } from '@lib/gdata';
+import { IWeapon } from '@lib/gdata/interfaces';
+import { memo, useEffect, useState } from 'react';
 
-export type WeaponTabProps = {};
+import { Tabs } from '..';
+import { TabWrapper } from '../wrapper';
 
-export const WeaponTab: React.FC<WeaponTabProps> = ({}) => {
-    const {
-        state: { tab: selectedTab },
-        dispatch,
-    } = useSelectedTab();
+// export type WeaponTabProps = {};
 
-    const [weapons, setWeapons] = useState<Array<Weapon>>();
-    const [chosenWeapon, setChosenWeapon] = useState<Weapon>();
-    const [openedWeaponSettings, setOpenedWeaponSettings] =
-        useState<boolean>(false);
+export const WeaponTab: React.FC = () => {
+	const {
+		state: { tab: selectedTab }
+	} = useSelectedTab();
 
-    useEffect(() => {
-        if (getDBState() !== DBState.READY) return;
-        setWeapons(getWeapons());
-    }, [getDBState() === DBState.READY]);
+	const [weapons, setWeapons] = useState<IWeapon[]>();
+	const [chosenWeapon, setChosenWeapon] = useState<IWeapon>();
+	const [openedWeaponSettings, setOpenedWeaponSettings] =
+		useState<boolean>(false);
 
-    return <TabWrapper tab={Tabs.Weapon}>Weapons</TabWrapper>;
+	useEffect(() => {
+		if (getDBState() !== DBState.READY) return;
+		setWeapons(getWeapons());
+	}, [getDBState() === DBState.READY]);
+
+	return <TabWrapper tab={Tabs.Weapon}>Weapons</TabWrapper>;
 };
 
-export const MWeaponTab = React.memo(WeaponTab);
+export const MWeaponTab = memo(WeaponTab);

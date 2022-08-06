@@ -1,15 +1,12 @@
-export { Button } from "./button";
-export { Slider } from "./slider";
-export { Search } from "./search";
-export { ScreenContainer } from "./screen-container";
-
-export { MImage } from "./image";
-export type { ImageProps } from "./image";
-
-export { ElementIcons } from "./elements";
-export { WeaponTypeIcons } from "./weapon-types";
-
-export { Rarity, RarityStar } from "./rarity";
-export type { RarityProps } from "./rarity";
-
-export { FadeReveal } from "./fade-reveal";
+export { Button } from './button';
+export { MElementIcon } from './elements';
+export { FadeReveal } from './fade-reveal';
+export type { ImageProps } from './image';
+export { MImage } from './image';
+export type { RarityProps } from './rarity';
+export { Rarity, RarityStar } from './rarity';
+export { ScreenContainer } from './screen-container';
+export { Search } from './search';
+export { Slider } from './slider';
+export { StarIcon } from './starIcon';
+export { MWeaponTypeIcon } from './weapon-types';
