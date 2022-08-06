@@ -1,13 +1,13 @@
-export { CharacterTab, MCharacterTab } from "./character";
-export { WeaponTab, MWeaponTab } from "./weapon";
-export { EnemyTab, MEnemyTab } from "./enemy";
-export { ArtifactsTab, MArtifactsTab } from "./artifacts";
-export { StatsTab, MStatsTab } from "./stats";
+export { ArtifactsTab, MArtifactsTab } from './artifacts';
+export { CharacterTab } from './character';
+export { EnemyTab, MEnemyTab } from './enemy';
+export { MStatsTab, StatsTab } from './stats';
+export { MWeaponTab, WeaponTab } from './weapon';
 
 export enum Tabs {
-    Character,
-    Weapon,
-    Enemy,
-    Artifacts,
-    Stats,
+	Character,
+	Weapon,
+	Enemy,
+	Artifacts,
+	Stats
 }

@@ -1,35 +1,33 @@
-import { Search } from "@components/common";
-import { Artifact } from "@data/database";
-import { useSelectedTab } from "@utilities/contexts";
-import React from "react";
-import { useState } from "react";
-import { Tabs } from "..";
-import { TabWrapper } from "../wrapper";
+// import { Search } from '@components/common';
+import { IArtifact } from '@lib/gdata/interfaces';
+import { memo, useState } from 'react';
 
-export type ArtifactsTabProps = {};
+import { Tabs } from '..';
+import { TabWrapper } from '../wrapper';
 
-export const ArtifactsTab: React.FC<ArtifactsTabProps> = ({}) => {
-    const {
-        state: { tab: selectedTab },
-        dispatch,
-    } = useSelectedTab();
+// export interface ArtifactsTabProps {}
 
-    const [openedArtifactSettings, setOpenedArtifactSettings] =
-        useState<boolean>(false);
-    const [chosenArtifacts, setChosenArtifacts] = useState<Array<Artifact>>();
+export const ArtifactsTab: React.FC = () => {
+	// const {
+	// 	state: { tab: selectedTab }
+	// } = useSelectedTab();
 
-    return (
-        <TabWrapper
-            tab={Tabs.Artifacts}
-            className={openedArtifactSettings ? "gap-0" : "gap-8"}
-        >
-            <div className="w-full h-full">
-                {/* <Search all={artifacts} /> */}
-                Artifacts
-            </div>
-            <div className="w-full h-full"></div>
-        </TabWrapper>
-    );
+	const [openedArtifactSettings, setOpenedArtifactSettings] =
+		useState<boolean>(false);
+	const [chosenArtifacts, setChosenArtifacts] = useState<Array<IArtifact>>();
+
+	return (
+		<TabWrapper
+			tab={Tabs.Artifacts}
+			className={openedArtifactSettings ? 'gap-0' : 'gap-8'}
+		>
+			<div className="w-full h-full">
+				{/* <Search all={artifacts} /> */}
+				Artifacts
+			</div>
+			<div className="w-full h-full"></div>
+		</TabWrapper>
+	);
 };
 
-export const MArtifactsTab = React.memo(ArtifactsTab);
+export const MArtifactsTab = memo(ArtifactsTab);

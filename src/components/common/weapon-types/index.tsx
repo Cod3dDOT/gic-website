@@ -1,19 +1,33 @@
-import { WeaponType } from "@data/database/data-classes";
+import { ImageProps } from '@components/common';
+import { WeaponTypeKeys } from '@lib/gdata/keys';
+import { memo } from 'react';
 
-import { Catalyst } from "./icons/catalyst";
-import { Sword } from "./icons/sword";
-import { Claymore } from "./icons/claymore";
-import { Polearm } from "./icons/polearm";
-import { Bow } from "./icons/bow";
+import { Bow } from './icons/bow';
+import { Catalyst } from './icons/catalyst';
+import { Claymore } from './icons/claymore';
+import { Polearm } from './icons/polearm';
+import { Sword } from './icons/sword';
 
-import { ImageProps } from "@components/common";
+export type IWeaponTypeIconProps = Omit<ImageProps, 'src'>;
 
-export interface WeaponTypeIconsProps extends Omit<ImageProps, "src"> {}
-
-export const WeaponTypeIcons = {
-    [WeaponType.Catalyst]: Catalyst,
-    [WeaponType.Sword]: Sword,
-    [WeaponType.Claymore]: Claymore,
-    [WeaponType.Polearm]: Polearm,
-    [WeaponType.Bow]: Bow,
+const WeaponTypeIcon: React.FC<
+	{ weaponType: WeaponTypeKeys } & IWeaponTypeIconProps
+> = ({ weaponType, ...rest }) => {
+	switch (weaponType) {
+		case 'catalyst':
+			return <Catalyst {...rest} />;
+		case 'bow':
+			return <Bow {...rest} />;
+		case 'claymore':
+			return <Claymore {...rest} />;
+		case 'polearm':
+			return <Polearm {...rest} />;
+		case 'sword':
+			return <Sword {...rest} />;
+		default:
+			console.error('Unknown weapon type');
+			return <div></div>;
+	}
 };
+
+export const MWeaponTypeIcon = memo(WeaponTypeIcon);

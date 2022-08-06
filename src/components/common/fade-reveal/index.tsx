@@ -1,39 +1,39 @@
-import React from "react";
+import React from 'react';
 
 export interface FadeRevealProps {
-    revealed: boolean;
+	revealed: boolean;
 
-    delayIn?: number;
-    delayOut?: number;
+	delayIn?: number;
+	delayOut?: number;
 
-    durationIn?: number;
-    durationOut?: number;
+	durationIn?: number;
+	durationOut?: number;
 
-    className?: string;
-    children: React.ReactNode;
+	className?: string;
+	children: React.ReactNode;
 }
 
 export const FadeReveal: React.FC<FadeRevealProps> = ({
-    revealed = false,
+	revealed = false,
 
-    delayIn = 0,
-    delayOut = 0,
+	delayIn = 0,
+	delayOut = 0,
 
-    durationIn = 200,
-    durationOut = 500,
+	durationIn = 200,
+	durationOut = 500,
 
-    className = "",
-    children,
+	className = '',
+	children
 }) => {
-    const getClasses = () => {
-        return revealed
-            ? `animate-fade-in-visible [animation-duration:${durationIn}] [animation-delay:${delayIn}]`
-            : `animate-fade-out-invisible [animation-duration:${durationOut}] [animation-delay:${delayOut}]`;
-    };
+	const getClasses = () => {
+		return revealed
+			? `animate-fade-in-visible [animation-duration:${durationIn}] [animation-delay:${delayIn}]`
+			: `animate-fade-out-invisible [animation-duration:${durationOut}] [animation-delay:${delayOut}]`;
+	};
 
-    return (
-        <div className={`opacity-0 ${getClasses()} ${className}`}>
-            {children}
-        </div>
-    );
+	return (
+		<div className={`opacity-0 ${getClasses()} ${className}`}>
+			{children}
+		</div>
+	);
 };

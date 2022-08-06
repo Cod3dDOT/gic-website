@@ -1,17 +1,15 @@
-import { useSelectedTab } from "@utilities/contexts";
-import React from "react";
-import { Tabs } from "..";
-import { TabWrapperProps, TabWrapper } from "../wrapper";
+import { useSelectedTab } from '@contexts';
+import { memo } from 'react';
 
-export type StatsTabProps = {};
+import { Tabs } from '..';
+import { TabWrapper, TabWrapperProps } from '../wrapper';
 
-export const StatsTab: React.FC<StatsTabProps> = ({}) => {
-    const {
-        state: { tab: selectedTab },
-        dispatch,
-    } = useSelectedTab();
+export const StatsTab: React.FC = () => {
+	const {
+		state: { tab: selectedTab }
+	} = useSelectedTab();
 
-    return <TabWrapper tab={Tabs.Stats}>Stats</TabWrapper>;
+	return <TabWrapper tab={Tabs.Stats}>Stats</TabWrapper>;
 };
 
-export const MStatsTab = React.memo(StatsTab);
+export const MStatsTab = memo(StatsTab);

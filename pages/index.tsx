@@ -1,53 +1,48 @@
-import React from "react";
+import { Footer, Header } from '@components';
+import { CalculatorScreen, WelcomeScreen } from '@components/screens';
+import { ConfigProvider, SelectedTabProvider } from '@contexts';
+import { getConfig, IConfig } from '@lib/config';
+import { GetServerSideProps } from 'next';
+import { StrictMode, useState } from 'react';
 
-import { useState } from "react";
+export const getServerSideProps: GetServerSideProps<IHomeProps> = async () => {
+	const config = await getConfig();
 
-import { Header, Footer } from "@components";
-import { WelcomeScreen, CalculatorScreen } from "@components/screens";
-
-import { getConfig } from "@data/config";
-import { Config } from "./api/config";
-import { GetServerSideProps } from "next";
-import { SelectedTabProvider, ConfigProvider } from "@utilities/contexts";
-
-export interface HomeProps {
-    config: Config;
-}
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-    const config = await getConfig();
-
-    return {
-        props: {
-            config: config,
-        },
-    };
+	return {
+		props: {
+			config: config
+		}
+	};
 };
 
-const Home: React.FC<HomeProps> = ({ config }) => {
-    const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
+interface IHomeProps {
+	config: IConfig;
+}
 
-    const toggleSettings = () => {
-        setSettingsOpened(!settingsOpened);
-    };
+const Home: React.FC<IHomeProps> = ({ config }) => {
+	const [settingsOpened, setSettingsOpened] = useState<boolean>(false);
 
-    return (
-        <React.StrictMode>
-            <ConfigProvider config={config}>
-                <SelectedTabProvider>
-                    <Header onSettingsToggle={toggleSettings} />
+	const toggleSettings = () => {
+		setSettingsOpened(!settingsOpened);
+	};
 
-                    <WelcomeScreen />
+	return (
+		<StrictMode>
+			<ConfigProvider config={config}>
+				<SelectedTabProvider>
+					<Header onSettingsToggle={toggleSettings} />
 
-                    {!config.underConstruction && (
-                        <CalculatorScreen settingsVisible={settingsOpened} />
-                    )}
+					<WelcomeScreen />
 
-                    <Footer />
-                </SelectedTabProvider>
-            </ConfigProvider>
-        </React.StrictMode>
-    );
+					{!config.underConstruction && (
+						<CalculatorScreen settingsVisible={settingsOpened} />
+					)}
+
+					<Footer />
+				</SelectedTabProvider>
+			</ConfigProvider>
+		</StrictMode>
+	);
 };
 
 export default Home;
