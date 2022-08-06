@@ -51,7 +51,7 @@ Start the server
 
 Contributions are always welcome!
 
-See [contributing.md](/CONTRIBUTING.MD) for ways to get started.
+See [contributing.md](/CONTRIBUTING.md) for ways to get started.
 
 <!-- Please adhere to this project's `code of conduct`. -->
 
