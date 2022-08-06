@@ -1,34 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GIC-website
 
-## Getting Started
+Genshin Impact Calculator, GIC for short, is a project aimed at accurately calculating stats for characters, weapons, artifacts and enemies.
 
-First, run the development server:
+Built using
+
+<p display="flex">
+  <a href="https://nextjs.org/">
+    <img src="https://skillicons.dev/icons?i=next" width="30" />
+  </a>
+  <a href="https://tailwindcss.com/">
+    <img src="https://skillicons.dev/icons?i=tailwind" width="30" />
+  </a>
+</p>
+
+Demo: [https://gic-website.vercel.app](https://gic-website.vercel.app)
+
+## Getting started
+
+Install pnpm
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install -g pnpm
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Clone the project
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```bash
+  git clone https://github.com/Cod3dDOT/gic-website
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Go to the project directory
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+  cd gic-website
+```
 
-## Learn More
+Install dependencies
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+  pnpm install
+```
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Start the server
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+  pnpm dev
+```
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Contributions are always welcome!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+See [contributing.md](/CONTRIBUTING.MD) for ways to get started.
+
+<!-- Please adhere to this project's `code of conduct`. -->
+
+## Deployments
+
+Deployments are build on main branch changes.
+To see current deployment build, visit [http://gic-website.vercel.app](http://gic-website.vercel.app)
+
+## License
+
+[GNU](/LICENSE)
+
+## Acknowledgements
+
+Inspiration:
+
+-   [gscale](https://gscale.cc) by glaciyan
+
+Data sources:
+
+-   [GenshinData](https://github.com/Dimbreath/GenshinData) by Dimbreath
+-   [genshin-db](https://github.com/theBowja/genshin-db) by theBowja
