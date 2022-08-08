@@ -1,37 +1,42 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+git diff --name-only HEAD ':!*.md' ':!.vscode' ':!.husky' ':!LICENSE' ||
+    (
+        true
+    )
+
 echo 'Styling, testing and building your project before committing...'
 
 # Check Prettier standards
-pnpm run check-format ||
-(
-    echo 'Prettier checks failed. Run pnpm run format, add changes and try to commit again.';
-    false;
-)
+pnpm check-format ||
+    (
+        echo 'Prettier checks failed. Run pnpm run format, add changes and try to commit again.'
+        false
+    )
 
 # Check ESLint Standards
-pnpm run check-lint ||
-(
+pnpm check-lint ||
+    (
         echo 'ESLint checks failed. Make the required changes listed above, add changes and try to commit again.'
-        false; 
-)
+        false
+    )
 
 # Check tsconfig standards
-pnpm run check-types ||
-(
-    echo 'Type checks failed. Are you seriously trying to write that? Make the changes required above.'
-    false;
-)
+pnpm check-types ||
+    (
+        echo 'Type checks failed. Are you seriously trying to write that? Make the changes required above.'
+        false
+    )
 
 # If everything passes... try t build it
 echo 'Alright... Looks good to me... Trying to build now.'
 
-pnpm run build ||
-(
-    echo 'Next build failed: View the errors above to see why.'
-    false;
-)
+pnpm build ||
+    (
+        echo 'Next build failed: View the errors above to see why.'
+        false
+    )
 
 # If everything passes... Now we can commit
 echo 'LGTM! Committing this now.'
