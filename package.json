@@ -11,9 +11,9 @@
 		"analyze:browser": "BUNDLE_ANALYZE=browser next build",
 		"check-lint": "next lint",
 		"check-types": "tsc --pretty --noEmit",
-		"check-format": "prettier --check '**/*.{ts,js,css,html}'",
-		"format": "prettier --write '**/*.{ts,js,css,html}'",
-		"test-all": "pnpm run check-format && pnpm run lint && pnpm run check-types && pnpm run build",
+		"check-format": "prettier --check **/*.{ts,js,css,html}",
+		"format": "prettier --write **/*.{ts,js,css,html}",
+		"test-all": "pnpm check-format && pnpm check-lint && pnpm check-types && pnpm build",
 		"prepare": "husky install"
 	},
 	"dependencies": {
