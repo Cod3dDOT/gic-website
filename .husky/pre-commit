@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-git diff --name-only HEAD ':!*.md' ':!.vscode' ':!.husky' ':!LICENSE' ||
+git diff --name-only --quiet HEAD ':!*.md' ':!.vscode' ':!.husky' ':!LICENSE' ||
     (
         true
     )
