@@ -7,16 +7,20 @@ if [[ "$VERCEL_GIT_COMMIT_REF" == "main" ]]; then
     git diff HEAD^ HEAD --name-only '!*.md' '!.husky' '!.vscode'
 
     if [[ $(git diff HEAD^ HEAD --name-only '!*.md' '!.husky' '!.vscode') != "" ]]; then
-        exit 1
-    else
-        :
-    fi
 
-    # Proceed with the build
-    echo "Proceeding with build on main branch"
-    exit 1
+        exit 0
+
+    else
+
+        # Proceed with the build
+        echo "Proceeding with build on main branch"
+        exit 1
+
+    fi
 else
+
     # Don't build
     echo "Not building on $VERCEL_GIT_COMMIT_REF branch"
     exit 0
+
 fi
