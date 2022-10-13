@@ -8,7 +8,7 @@ import Head from 'next/head';
 // import { withWDYR } from '@utilities';
 // withWDYR();
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 	return (
 		<>
 			<Head>
@@ -17,6 +17,6 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 			<Component {...pageProps} />
 		</>
 	);
-}
+};
 
 export default MyApp;

@@ -7,6 +7,7 @@ export type { RarityProps } from './rarity';
 export { Rarity, RarityStar } from './rarity';
 export { ScreenContainer } from './screen-container';
 export { Search } from './search';
+export { Skeleton } from './skeleton';
 export { Slider } from './slider';
 export { StarIcon } from './starIcon';
 export { MWeaponTypeIcon } from './weapon-types';

@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@boost/decorators': ^3.0.0
   '@next/bundle-analyzer': ^12.2.3
   '@tailwindcss/typography': ^0.5.4
   '@types/node': ^18.6.2
@@ -40,6 +41,7 @@ dependencies:
   typescript: 4.7.4
 
 devDependencies:
+  '@boost/decorators': 3.0.0
   '@next/bundle-analyzer': 12.2.3
   '@tailwindcss/typography': 0.5.4_tailwindcss@3.1.6
   '@types/node': 18.6.2
@@ -79,6 +81,11 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.13.9
+    dev: true
+
+  /@boost/decorators/3.0.0:
+    resolution: {integrity: sha512-ShIwBx9mUCvuRjhYieXvBq+Ab/nFZ09+c73vZRCVrkNJUhluyQW3AayH6FeI8NV4EIte+WZlpcbS1rZXwQoikg==}
+    engines: {node: '>=12.17.0', npm: '>=6.13.0'}
     dev: true
 
   /@eslint/eslintrc/1.3.0:

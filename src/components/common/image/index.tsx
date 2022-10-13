@@ -1,6 +1,8 @@
 import { default as NextImage, ImageProps as NextImageProps } from 'next/image';
 import { memo, useState } from 'react';
 
+import { Skeleton } from '../skeleton';
+
 export type ImageProps = {
 	fallback?: string;
 	smoothLoad?: boolean;
@@ -26,32 +28,39 @@ export const Image: React.FC<ImageProps> = ({
 		naturalWidth: number;
 		naturalHeight: number;
 	}) => {
+		console.log(src, 'loaded');
 		if (result.naturalWidth === 0 && fallback) {
 			setImgSrc(fallback);
-		} else {
+			setLoaded(true);
+		} else if (result.naturalWidth !== 0) {
 			setLoaded(true);
 		}
 	};
 
-	const onError = () => {
-		if (fallback) setImgSrc(fallback);
+	const onErrorHandler = () => {
+		if (!fallback) return;
+		setImgSrc(fallback);
 		setLoaded(true);
 	};
 
-	if (fallback) rest.onError = onError;
+	if (fallback) rest.onError = onErrorHandler;
 	if (smoothLoad) rest.onLoadingComplete = onLoad;
 
 	return (
-		<div
-			className={`relative h-full w-full transition-opacity opacity-0 duration-300 ${
-				loaded && 'opacity-100'
-			} ${className}`}
-		>
+		<div className={`relative h-full w-full ${className}`}>
+			<Skeleton
+				className={`!absolute inset-0 h-full w-full transition-opacity ${
+					loaded && 'opacity-0'
+				}`}
+			/>
 			<MNextImage
 				src={imgSrc}
 				alt={alt}
 				layout={layout}
 				objectFit={objectFit}
+				className={`transition-opacity opacity-0 duration-300 ${
+					loaded && 'opacity-100'
+				}`}
 				{...rest}
 			/>
 		</div>

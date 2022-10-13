@@ -54,6 +54,8 @@ module.exports = {
 			animation: {
 				flicker: 'flicker 3s linear reverse infinite',
 				loader: '',
+				skeleton:
+					'skeleton 1s infinite ease-in-out var(--animationDelay)',
 				'fade-in-visible': 'fade-in-visible 0.2s forwards',
 				'fade-out-invisible': 'fade-out-invisible 0.5s forwards'
 			}

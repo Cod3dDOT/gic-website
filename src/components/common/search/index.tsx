@@ -1,3 +1,4 @@
+import { Memoize } from '@boost/decorators';
 import { Elements } from '@lib/gdata/Elements';
 import {
 	IArtifact,
@@ -19,7 +20,7 @@ import {
 	SearchRarityFilter,
 	SearchWeaponTypesFilter
 } from './filters';
-import { MSearchCharacterSelector, SkeletonPreview } from './selectors';
+import { MSearchCharacterSelector } from './selectors';
 
 export type AvailableSearchTypes =
 	| ICharacter
@@ -37,6 +38,69 @@ export interface SearchProps {
 	className?: string;
 }
 
+class SearchFilter {
+	all: Array<AvailableSearchTypes> = [];
+	query = '';
+	rarities: RarityKeys[] = [1, 2, 3, 4, 5];
+	elements: IElement[] = Object.values(Elements);
+	weaponTypes: IWeaponType[] = Object.values(WeaponTypes);
+
+	updateAll(all: Array<AvailableSearchTypes>) {
+		this.all = all;
+	}
+
+	public Filter(filter: {
+		query?: string;
+		rarities?: RarityKeys[];
+		elements?: IElement[];
+	}) {
+		this.query = filter.query || this.query;
+		this.rarities = filter.rarities || this.rarities;
+		this.elements = filter.elements || this.elements;
+		return this.filter(this.query, this.rarities, this.elements);
+	}
+
+	private filter(
+		query: string,
+		rarities: RarityKeys[],
+		elements: IElement[]
+	) {
+		let filtered = this.all;
+		if (query) filtered = this.filterByName(query, filtered);
+
+		filtered = this.filterByRarity(rarities, filtered);
+		filtered = this.filterByElement(elements, filtered);
+		return filtered;
+	}
+
+	@Memoize()
+	filterByName(name: string, all: AvailableSearchTypes[]) {
+		return all.filter((item) => item.name.includes(name));
+	}
+
+	@Memoize()
+	filterByRarity(rarities: RarityKeys[], all: AvailableSearchTypes[]) {
+		return all.filter((item) => {
+			if (item.type === 'enemy') return true;
+			//fix
+			if (item.type === 'artifact') return true;
+			//fix
+			if (item.type === 'artifact_set')
+				return rarities.includes(item.rarity);
+
+			return rarities.includes(item.rarity);
+		});
+	}
+
+	@Memoize()
+	filterByElement(elements: IElement[], all: AvailableSearchTypes[]) {
+		return all.filter((item) => {
+			if (item.type !== 'character') return true;
+			return item.elements.some((el) => elements.includes(el));
+		});
+	}
+}
+
 export const Search: React.FC<SearchProps> = ({
 	all,
 	// def = undefined,
@@ -50,32 +114,34 @@ export const Search: React.FC<SearchProps> = ({
 	const [selected] = useState<AvailableSearchTypes[]>();
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	const [rarity, setRarity] = useState<RarityKeys>(5);
-	const [elements, setElements] = useState<Set<IElement>>(
-		new Set<IElement>(Object.values(Elements))
-	);
-	const [weaponType, setWeaponType] = useState<Set<IWeaponType>>(
-		new Set<IWeaponType>(Object.values(WeaponTypes))
-	);
+	const [searchFilter] = useState<SearchFilter>(new SearchFilter());
 
-	const updateValues = () => {
-		setFilteredValues(
-			all.filter((_val: AvailableSearchTypes) => {
-				switch (_val.type) {
-					case 'artifact':
-						return false;
-					case 'character':
-						return _val.rarity === rarity;
-					case 'enemy':
-						return false;
-					case 'weapon':
-						return false;
-				}
-			})
-		);
+	const getMinStars = (): RarityKeys => {
+		if (!all.length) return 0 as RarityKeys;
+		switch (all[0].type) {
+			case 'artifact':
+				return 0 as RarityKeys;
+			case 'character':
+				return 4 as RarityKeys;
+			case 'weapon':
+				return 0 as RarityKeys;
+			default:
+				return 0 as RarityKeys;
+		}
 	};
 
-	useEffect(() => setFilteredValues(all), [all]);
+	const updateValues = (filter: {
+		name?: string;
+		rarities?: RarityKeys[];
+		elements?: IElement[];
+	}) => {
+		setFilteredValues(searchFilter.Filter(filter));
+	};
+
+	useEffect(() => {
+		setFilteredValues(all);
+		searchFilter.updateAll(all);
+	}, [all, searchFilter]);
 
 	const getSelector = (val: AvailableSearchTypes) => {
 		const props = {
@@ -116,27 +182,25 @@ export const Search: React.FC<SearchProps> = ({
 			</div>
 			<div className="flex flex-wrap mt-2 gap-1 rounded-md md:p-2 md:gap-2 md:mt-1 md:bg-dark-primary">
 				<SearchRarityFilter
-					rarity={rarity}
-					onChanged={(_r) => {
-						setRarity(_r);
-						updateValues();
+					rarity={5}
+					min={getMinStars()}
+					onChanged={(r) => {
+						updateValues({ rarities: [r] });
 					}}
 				/>
 				<SearchWeaponTypesFilter />
-				<SearchElementsFilter />
+				<SearchElementsFilter
+					onChanged={(els) => {
+						updateValues({ elements: els });
+					}}
+				/>
 			</div>
 			<div className="flex flex-wrap gap-4 mt-4 overflow-auto flex-grow">
-				{filteredValues.length > 0
-					? filteredValues.map((val) => {
-							return getSelector(val);
-					  })
-					: Array.from({ length: 20 }).map((_, index) => {
-							return (
-								<SkeletonPreview
-									key={`search-preview-${index}`}
-								/>
-							);
-					  })}
+				{filteredValues.length > 0 ? (
+					filteredValues.map((val) => getSelector(val))
+				) : (
+					<div>Nothing found</div>
+				)}
 			</div>
 		</div>
 	);
